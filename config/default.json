@@ -1,0 +1,3 @@
+{
+    "mongoDBURI": "mongodb+srv://chatUser:2MC4WgPKFLw5squw@cluster0-ol4ro.mongodb.net/test?retryWrites=true&w=majority"
+}
