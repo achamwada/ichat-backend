@@ -1,14 +1,16 @@
-const connectDB = require("../config/db");
+const connectDB = require("../../config/db");
 const express = require("express");
 const router = express.Router();
-
+const auth = require('../../middleware/auth');
+const User = require('../../models/User');
 const { check, validationResult } = require("express-validator/check");
+const bcrypt = require('bcryptjs');
 
 connectDB();
 // @route       GET /api/users
 // @desc        list all users
 // @access      Private
-router.get("/", (req, res) => {
+router.get("/", auth, (req, res) => {
   res.json({ msg: "get users" });
 });
 
@@ -26,13 +28,38 @@ router.post(
       min: 6
     })
   ],
-  (req, res) => {
-    
+  async (req, res) => {
+
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       return res.status(400).json({ errors: errors.array() });
     }
-     res.json({ msg: "Add new user" });
+
+    const { username, email, password } = req.body;
+
+    const user = await User.findOne({ email });
+    //console.log(user);
+    if (user) {
+      return res.status(400).json({ msg: 'User exists' });
+
+    }
+
+
+    try {
+
+      const salt = await bcrypt.genSalt(10);
+      const hashedpassword = await bcrypt.hash(password, salt);
+
+      const newUser = new User({
+        username, email, password: hashedpassword
+      });
+
+      const createdUser = await newUser.save();
+      res.status(200).json({ createdUser })
+    } catch (err) {
+      console.log(err.message);
+    }
+
   }
 );
 

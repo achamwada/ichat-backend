@@ -13,8 +13,11 @@ app.get("/api/", (req, resp) => {
 
 
 // Api Routes
-app.use('/api/users', require('./users/users'));
-app.use('/api/chats', require('./chats/chats'));
+app.use('/api/users', require('./routes/users/users'));
+app.use('/api/chats', require('./routes/chats/chats'));
+// app.use('/auth', require('./auth/auth'));
+
+app.use('/api/auth', require('./routes/auth/auth'));
 
 app.listen(port, () => {
     console.log(`Listening at port ${port}`);
