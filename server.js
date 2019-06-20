@@ -14,7 +14,10 @@ app.use('/api/friends', require('./api/routes/friend/friend'));
 app.use('/api/auth', require('./api/routes/auth/login'));
 app.use('/api/status', require('./api/routes/status/status'));
 
-// listen on port
-app.listen(PORT, () => {
-  console.log(`Server listening on port ${PORT}`);
+app.use('/api/auth', require('./routes/auth/auth'));
+
+app.use('/api/channels', require('./routes/channels/channels'));
+
+app.listen(port, () => {
+  console.log(`Listening at port ${port}`);
 });
