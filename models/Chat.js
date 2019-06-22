@@ -1,11 +1,14 @@
 const mongoose = require('mongoose');
 
-const userSchema = mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const userSchema = Schema({
     user_id:{
-        type: String
+        type: Schema.Types.ObjectId
     },
     channel_id: {
-        type: String
+        type: Schema.Types.ObjectId,
+        ref: 'Channel'
     },
     message:{
         type: String

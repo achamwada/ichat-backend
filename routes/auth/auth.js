@@ -32,9 +32,9 @@ route.post('/', [
         }
 
         const payload = {
-            user: {
-                id: user.id
-            }
+            user:{
+            user_id: user.id
+            } 
         };
 
         jwt.sign(payload, config.get('JWT_SECRET'), { expiresIn: 3600 }, (err, token) => {

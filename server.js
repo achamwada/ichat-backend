@@ -19,6 +19,8 @@ app.use('/api/chats', require('./routes/chats/chats'));
 
 app.use('/api/auth', require('./routes/auth/auth'));
 
+app.use('/api/channels', require('./routes/channels/channels'));
+
 app.listen(port, () => {
     console.log(`Listening at port ${port}`);
 })
