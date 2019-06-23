@@ -1,4 +1,4 @@
-#iChat Backend API
+# iChat Backend API
 
 ###### This is an Express NodeJS App that allows iChat to create new users that have the capability login, allowing the ability to create chat channels, send messages to other users within a channel and the ability to invite friends.
 
