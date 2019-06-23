@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const config = require('config');
-const db = config.get('localDB'); //config.get("mongoDBURI");
 
 const DBconn = async () => {
   try {

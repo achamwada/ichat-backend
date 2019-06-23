@@ -17,7 +17,7 @@
 ### Routes
 
 ## localhost:5000/api/users
-*PUT Request*
+*POST Request*
 ######  This is a public route that is used to create a new user account
 - Params required are given below
 1. user_name
@@ -31,7 +31,7 @@
 ######  This is a protected route that lists all friends of current logged in user
 
 ## localhost:5000/api/users/:user_id
-*POST Request*
+*PUT Request*
 ######  This is a protected route that is used to update a selected user properties which can be 
 1. phone_number
 2. email_address
