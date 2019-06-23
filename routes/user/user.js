@@ -5,7 +5,7 @@ const bcrypt = require("bcryptjs");
 const DBconn = require("../../config/db");
 const { check, validationResult } = require("express-validator");
 const User = require("../../models/User");
-const auth = require("../middleware/authentication");
+const auth = require("../../middleware/authentication");
 const router = express.Router();
 DBconn();
 
