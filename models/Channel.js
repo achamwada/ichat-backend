@@ -6,7 +6,7 @@ const ChannelSchema = Schema({
     admininstrators: {
         type: Schema.Types.ObjectId,
         ref: 'user',
-        required: true
+        //required: true
     },
     date_added: {
         type: Date,

@@ -4,6 +4,7 @@ const { check, validationResult } = require("express-validator/check");
 const dbConnect = require("../../config/db");
 const auth = require("../../middleware/auth");
 const jwt_decode = require('jwt-decode');
+const User = require('../../models/User');
 
 
 dbConnect();
@@ -42,7 +43,7 @@ router.post(
     const errors = validationResult(req);
     if (!errors.isEmpty()) res.status(400).json({ errors: errors.array() });
     const { title, description } = req.body;
-    const user_token = req.body.user.user_id;
+    const user_id = req.body.user.user_id;
 
     try {
       const checkForChannel = await Channel.findOne({ title, description });
@@ -56,7 +57,12 @@ router.post(
     }
 
     try {
-      const newChannel = new Channel({ title, description, admininstrators: user_token });
+      const user = User.findById(user_id)
+
+
+
+      const newChannel = new Channel({ title, description  });
+      newChannel.admininstrators = user;
     
       savedChannel = await newChannel.save();
     } catch (err) {
