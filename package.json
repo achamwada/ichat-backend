@@ -1,0 +1,38 @@
+{
+  "name": "ichat-backend",
+  "version": "1.0.0",
+  "description": "API for iChat for all it's models CRUD operations and realtime chat system",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "serve": "nodemon server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/achamwada/ichat-backend.git"
+  },
+  "keywords": [
+    "iChat",
+    "realtime",
+    "chat",
+    "backend"
+  ],
+  "author": "Alexander Chamwada",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/achamwada/ichat-backend/issues"
+  },
+  "homepage": "https://github.com/achamwada/ichat-backend#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "config": "^3.1.0",
+    "express": "^4.17.1",
+    "express-validator": "^6.0.1",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.6.0",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
+}
