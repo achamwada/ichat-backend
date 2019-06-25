@@ -76,6 +76,9 @@ router.get("/", auth, async (req, res) => {
     const userData = await User.findById(req.body.user.user_id).select(
       "-password"
     );
+
+    if (!userData) return res.status(404).json({ msg: "user not found" });
+
     return res.status(200).json({ user: userData });
   } catch (error) {
     console.log(error);
@@ -121,36 +124,31 @@ router.put("/", auth, async (req, res) => {
     await User.findByIdAndUpdate(user_id, { $set: user_fields });
 
     // this is not updating on first request
-    return res.status(200).json({ msg: 'user updated' });
+    return res.status(200).json({ msg: "user updated" });
   } catch (error) {
     return res.status(400).json({ msg: "Bad request" });
   }
 });
-
 
 /**
  * DELETE   /api/user/
  * Protected route that deletes users account
  */
 
- router.delete("/", auth, async (req, res) => {
-
+router.delete("/", auth, async (req, res) => {
   try {
+    const token = req.header("x-auth-token");
+    const decoded_user = jwt.verify(token, config.get("JWT_SECRET"));
 
-    const token = req.header('x-auth-token');
-    const decoded_user = jwt.verify(token, config.get('JWT_SECRET'));
-   
     const user_id = decoded_user.user_id;
 
     await User.findByIdAndRemove(user_id);
 
-    return res.status(200).json({msg: 'Account Deleted'});
-    
+    return res.status(200).json({ msg: "Account Deleted" });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({msg: 'Server Error'});
+    return res.status(500).json({ msg: "Server Error" });
   }
-
- });
+});
 
 module.exports = router;
