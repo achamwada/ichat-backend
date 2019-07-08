@@ -7,24 +7,26 @@ import { useApi } from './hooks/';
 import { Auth, Request } from './models/';
 
 const App: React.FC = () => {
-  const [token, setToken] = useState();
   const [userDetails, setUserDetails] = useState();
+  const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNTYyNzA3LCJleHAiOjE1NjI1OTg3MDd9.v21ZfR-xIpN9ncxhULmsuTLDVqyaPxTubXDNN11LyQo';
 
   const { data, isLoading, isError } = useApi<Request<null>, Auth>({
     method: 'GET',
     url: '/api/user',
-    token:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNTYyNzA3LCJleHAiOjE1NjI1OTg3MDd9.v21ZfR-xIpN9ncxhULmsuTLDVqyaPxTubXDNN11LyQo'
+    token
   });
 
-  if(data){
-    //setUserDetails(data);
-    console.log(data);
+  useEffect(() => {
+    if (data) {
+      setUserDetails(data);
+    }
+  }, [data]);
 
-  }
-  
-
-  return <AuthContext.Provider value={{ token, userDetails }}><Home/></AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ token, userDetails }}>
+      <Home />
+    </AuthContext.Provider>
+  );
 };
 
 export default App;
