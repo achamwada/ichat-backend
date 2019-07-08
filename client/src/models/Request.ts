@@ -9,3 +9,9 @@ export interface Request<T> {
 export interface Response<W>{
     data: W
 }
+
+export interface ActionCreator<T>{
+    action: string,
+    payload?: T
+
+}

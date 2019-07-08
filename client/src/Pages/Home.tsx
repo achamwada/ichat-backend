@@ -3,21 +3,14 @@ import { AuthContext } from '../context/';
 
 const Home: React.FC = () => {
     const auth = useContext(AuthContext);
+    
+    const { token, user } = auth;
+    console.log({ token, user } );
     return (
-        <AuthContext.Consumer>
-            {
-                ({token, userDetails}) => {
-                    if(token){
-                        console.log(userDetails);
-                        return token;
-                    }else{
-                        return 'Error'
-                    }
-                }
-            }
-
-        </AuthContext.Consumer>
+        <React.Fragment>
+            test
+        </React.Fragment>
     )
 }
 
-export default Home
+export default Home;

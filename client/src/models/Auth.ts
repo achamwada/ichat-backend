@@ -1,17 +1,17 @@
 
-export interface User{
-    firstName: string,
-    userName: string,
-    lastName: string,
-    emailAddress: string,
+export interface User {
+    user_name: string,
+    email_address: string,
+    firstName?: string,
+    lastName?: string,
     age?: number,
     country?: string,
-    city?:string,
-    phoneNumber?:string,
+    city?: string,
+    phoneNumber?: string,
 
 };
 
-export interface Auth{
+export interface Auth {
     token: string,
-    userDetails: User,
+    user: User,
 }

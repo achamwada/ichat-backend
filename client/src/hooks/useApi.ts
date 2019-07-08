@@ -18,7 +18,7 @@ export interface Request<T> {
 }
 
 export interface Response<U> {
-    data: U,
+    data?: U,
     status?: number,
     errors?: Array<ResponseError>,
 
@@ -37,7 +37,7 @@ export interface Loading {
 export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loading, err?: ResponseError) => {
 
     axios.defaults.headers.common["x-auth-token"] = req.token ? req.token : null;
-    const [data, setData] = useState<Response<U> | null>(null);
+    const [results, setResults] = useState<Response<U> | null>(null);
     const [isLoading, setLoading] = useState<Loading | false | true>(false);
     const [isError, setError] = useState<ResponseError | false | true>(false);
 
@@ -56,8 +56,14 @@ export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loadi
                         data: req.payload
                     });
 
-                    const responseObj: Response<U> = await response.data;
-                    setData(responseObj);
+                    const data = await response.data;
+                    // console.log('data', data);
+                    // var responseObj: Response<U> = {
+                    //     data: data
+                    // }
+                    
+                    setResults(data);
+                    
 
                 }
 
@@ -76,7 +82,7 @@ export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loadi
 
     }, [req.url]);
 
-    return { data, isLoading, isError }
+    return { results, isLoading, isError }
 
 
 
