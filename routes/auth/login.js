@@ -41,6 +41,12 @@ router.post(
           expiresIn: 36000
         });
 
+        res.cookie('x-auth-token',token, {
+          maxAge: 36000,
+          path: '/',
+          httpOnly: true
+        })
+
         return res.status(200).json({ token });
       });
     } catch (error) {

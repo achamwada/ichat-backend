@@ -1,6 +1,9 @@
 export interface Request<T> {
-    url: String,
-    params: T
+    url: string;
+    method: string,
+    payload?: T,
+    responseType?: string,
+    token?: string
 }
 
 export interface Response<W>{

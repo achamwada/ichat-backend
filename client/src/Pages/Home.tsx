@@ -6,8 +6,9 @@ const Home: React.FC = () => {
     return (
         <AuthContext.Consumer>
             {
-                ({token}) => {
+                ({token, userDetails}) => {
                     if(token){
+                        console.log(userDetails);
                         return token;
                     }else{
                         return 'Error'
