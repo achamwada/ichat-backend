@@ -3,11 +3,10 @@ import { AuthContext } from './AuthContext';
 import { myReducer } from './AuthContextReducer';
 import { Request, User, ActionTypes } from '../../models';
 import { useApi } from '../../hooks/useApi';
-import { Auth , Action, AuthStatusPayload} from '../../models';
+import { Auth, Action, AuthStatusPayload } from '../../models';
 
 const AuthContextState: React.FC = props => {
-  const token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNjg3MDk0LCJleHAiOjE1NjI3MjMwOTR9.Fa05cpUVXybcfpsc7NXl5TmU3eo0boSSypMKPccp-jc';
+  const token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNjg3MDk0LCJleHAiOjE1NjI3MjMwOTR9.Fa05cpUVXybcfpsc7NXl5TmU3eo0boSSypMKPccp-jc';
 
   const { results, isLoading, isError } = useApi<Request<null>, { user: User }>(
     {
@@ -26,7 +25,7 @@ const AuthContextState: React.FC = props => {
   };
 
   const [state, dispatch] = useReducer(myReducer, initialState);
-  
+
   let resultsData: User | null = null;
   let dataIn: Action<AuthStatusPayload> = {
     type: ActionTypes.CHECK_AUTH,
@@ -34,20 +33,19 @@ const AuthContextState: React.FC = props => {
       token,
       data: resultsData
     }
-  }
+  };
   try {
-    
     if (results && null !== results.user) {
       resultsData = results.user;
     }
     resultsData = resultsData;
-    dataIn  = {
+    dataIn = {
       type: ActionTypes.CHECK_AUTH,
       payload: {
         token,
         data: resultsData
       }
-    }
+    };
   } catch (error) {
     console.log(error);
   }
@@ -55,8 +53,6 @@ const AuthContextState: React.FC = props => {
   useEffect(() => {
     dispatch(dataIn);
   }, [dataIn.payload.data]);
-
-  console.log('dataIn',dataIn)
 
   return (
     <AuthContext.Provider
