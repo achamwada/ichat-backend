@@ -29,7 +29,7 @@ export interface Loading {
   timeout: number;
 }
 
-export interface ActionCreator<T> {
+export interface Action<T> {
   action: string;
   payload?: T;
 }
@@ -51,6 +51,6 @@ export interface Auth {
   token: string;
   authenticated?: boolean;
   data: User | null;
-  loading?: Loading;
-  error?: Array<ResponseError>;
+  // loading?: Loading;
+  // error?: Array<ResponseError>;
 }

@@ -6,8 +6,8 @@ import Footer from '../Pages/layouts/Footer';
 const Home: React.FC = () => {
     const auth = useContext(AuthContext);
     
-    const { token, user } = auth;
-    console.log({ token, user } );
+    const { token, data } = auth;
+    console.log({ token, data } );
     return (
         <React.Fragment>
             <Header/>

@@ -1,7 +1,8 @@
 import React from 'react'
-import { User, ActionCreator } from '../../models';
+import { Response, User, Auth, Action } from '../../models';
 
-export default (initState: User, action: ActionCreator<null>) => {
+export default (initState: Auth, action: Action<null>) => {
+    console.log('in reducer initState => ', initState)
     return initState;
 
 }

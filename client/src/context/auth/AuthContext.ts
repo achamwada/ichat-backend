@@ -1,4 +1,4 @@
 import React, { createContext } from 'react';
-import { Auth } from '../../models';
+import { Auth, User } from '../../models';
 
-export const AuthContext = createContext<Partial<Auth>>({});
+export const AuthContext = createContext<Auth>({token:'',authenticated: false,data: null});
