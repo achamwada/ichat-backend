@@ -57,5 +57,5 @@ export interface Auth {
 
 export interface AuthStatusPayload{
     token: string,
-    data: User | null
+    data: User | any
 }
