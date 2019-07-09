@@ -1,29 +1,36 @@
-import React, { useReducer, useContext, useState, useEffect } from 'react';
-import { AuthContext } from './AuthContext';
-import AuthContextReducer from './AuthContextReducer';
-import { Request, User, Response } from '../../models';
-import {useApi} from '../../hooks/useApi';
-
+import React, { useReducer, useContext, useState, useEffect } from "react";
+import { AuthContext } from "./AuthContext";
+import AuthContextReducer from "./AuthContextReducer";
+import { Request, User, Response } from "../../models";
+import { useApi } from "../../hooks/useApi";
+import { Auth } from '../../models';
 
 const AuthContextState: React.FC = props => {
+  const token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNjUwOTk4LCJleHAiOjE1NjI2ODY5OTh9.Nlr9P1IYa2B8RGAN0TBHWXzAaeRBTgpg9DgkZiz4mj4";
 
-
-
-  const token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNjA2MTE3LCJleHAiOjE1NjI2NDIxMTd9.KeRgm91qaf_a-HXU73RHw36TXfGCTboG2vLYTXXTshw';
-  
-  
-  const { results, isLoading, isError } = useApi<Request<null>, Response<User>>({
-      url: '/api/user',
-      method: 'GET',
+  const { results, isLoading, isError } = useApi<Request<null>, Response<User>>(
+    {
+      url: "/api/user",
+      method: "GET",
       token
-  });
-  
+    }
+  );
+  console.log('results',results);
+
+  // const userObject: User | null = results ? results!.data : null; 
+  //const userObject: Response<User> = results;  // 
+
+
+
+  const authenticated: boolean = true;
   const initialState = {
     token,
-    ...results  
+    authenticated,
+    data: results
   };
+  console.log('initialState', initialState);
 
-  //const [state, dispatch] = useReducer(AuthContextReducer, initialState);
+  const [state, dispatch] = useReducer(AuthContextReducer, initialState);
 
   return (
     <AuthContext.Provider
@@ -31,7 +38,7 @@ const AuthContextState: React.FC = props => {
         ...initialState
       }}
     >
-        {props.children}
+      {props.children}
     </AuthContext.Provider>
   );
 };

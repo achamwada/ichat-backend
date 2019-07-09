@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Request, Response, Loading, ResponseError, ReqMethods } from '../models/'
 
-export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loading, err?: ResponseError) => {
+export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loading, err?: ResponseError) /* : {results: Response<U>, isLoading: Loading, isError: ResponseError }*/ => {
 
     axios.defaults.headers.common["x-auth-token"] = req.token ? req.token : null;
     const [results, setResults] = useState<Response<U> | null>(null);
@@ -24,7 +24,8 @@ export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loadi
                         data: req.payload
                     });
 
-                    const data = await response.data;
+                    const {data} = await response.data;
+                    console.log('data',data);
                     setResults(data);
 
 
@@ -42,7 +43,7 @@ export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loadi
         }
 
 
-    }, [req.url]);
+    }, []);
 
     return { results, isLoading, isError }
 
