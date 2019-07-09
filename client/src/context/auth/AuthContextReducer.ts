@@ -4,8 +4,9 @@ import {useApi} from '../../hooks/useApi';
 const checkStatus = (initialState: Auth, payload: AuthStatusPayload) => {
 
   const authenticated: boolean = true;
-
+  console.log('payload.data in reducer', payload)
   if (payload.data) {
+    
     return {
         ...initialState,
       token: payload.token,
@@ -13,7 +14,7 @@ const checkStatus = (initialState: Auth, payload: AuthStatusPayload) => {
       data: payload.data//{_id: "5d112f97ae436c07a7d976ae", user_name: "ale", email_address: "alex@gmail.com", date_added: "2019-06-24T20:16:23.642Z", __v: 0}
     };
   }
-
+ 
   //console.log("payload.data", payload.data);
 
   //console.log("in checkStatus => ", initialState);
@@ -25,7 +26,7 @@ const checkStatus = (initialState: Auth, payload: AuthStatusPayload) => {
 
 export const myReducer = (initStateData: Auth, action: Action<AuthStatusPayload>) => {
 
-    console.log("in reducer initState => ", initStateData);
+    //console.log("in reducer initState => ", initStateData);
 
   switch (action.type) {
 

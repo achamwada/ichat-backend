@@ -3,7 +3,7 @@ import { AuthContext } from './AuthContext';
 import { myReducer } from './AuthContextReducer';
 import { Request, User, ActionTypes } from '../../models';
 import { useApi } from '../../hooks/useApi';
-import { Auth } from '../../models';
+import { Auth , Action, AuthStatusPayload} from '../../models';
 
 const AuthContextState: React.FC = props => {
   const token: string =
@@ -16,7 +16,6 @@ const AuthContextState: React.FC = props => {
       token
     }
   );
-  console.log('results in AuthContextState', results);
 
   var initialState: Auth = {
     token: '',
@@ -28,43 +27,36 @@ const AuthContextState: React.FC = props => {
 
   const [state, dispatch] = useReducer(myReducer, initialState);
   
-  try {
-    let resultsData: User | null = null;
-    if (results && null !== results.user) {
-      console.log('results in AuthContextState results!.user', results.user);
-      resultsData = results.user;
-    } else {
+  let resultsData: User | null = null;
+  let dataIn: Action<AuthStatusPayload> = {
+    type: ActionTypes.CHECK_AUTH,
+    payload: {
+      token,
+      data: resultsData
     }
-
-    dispatch({
+  }
+  try {
+    
+    if (results && null !== results.user) {
+      resultsData = results.user;
+    }
+    resultsData = resultsData;
+    dataIn  = {
       type: ActionTypes.CHECK_AUTH,
       payload: {
         token,
-        data: resultsData //{_id: "5d112f97ae436c07a7d976ae", user_name: "test", email_address: "SDGHDGH@gmail.com"}
+        data: resultsData
       }
-    });
+    }
   } catch (error) {
     console.log(error);
   }
 
- 
+  useEffect(() => {
+    dispatch(dataIn);
+  }, [dataIn.payload.data]);
 
-  // const [state, dispatch] = useReducer(myReducer, initialState);
-  //const allData = ...results;
-
-  // useEffect(() => {
-  //   console.log('results => ', results);
-  //   dispatch({
-  //     type: ActionTypes.CHECK_AUTH,
-  //     payload: {
-  //       token,
-  //       data: resultsData //{_id: "5d112f97ae436c07a7d976ae", user_name: "test", email_address: "SDGHDGH@gmail.com"}
-  //     }
-  //   });
-  // }, []);
-
-  // console.log('state => ', state);
-  // console.log('last resultsData', resultsData);
+  console.log('dataIn',dataIn)
 
   return (
     <AuthContext.Provider
@@ -80,6 +72,5 @@ const AuthContextState: React.FC = props => {
     </AuthContext.Provider>
   );
 };
-
 
 export default AuthContextState;
