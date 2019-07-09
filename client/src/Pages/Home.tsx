@@ -6,14 +6,28 @@ import Footer from '../Pages/layouts/Footer';
 const Home: React.FC = () => {
     const auth = useContext(AuthContext);
     
-    const { token, data } = auth;
-    console.log({ token, data } );
+    const { token, data, authenticated } = auth;
+    //console.log({ token, authenticated, data } );
     return (
+        // <AuthContext.Consumer>
+        //     { (token, authenticated, data) => {
+        //         if(token){
+        //             return <React.Fragment>
+        //             <Header/>
+        //             test
+        //             <Footer/>
+        //         </React.Fragment>
+
+        //         }
+        //     }}
+        // </AuthContext.Consumer>
+
         <React.Fragment>
-            <Header/>
-            test
-            <Footer/>
-        </React.Fragment>
+                    <Header/>
+                    test
+                    {document.write(JSON.stringify(data))}
+                    <Footer/>
+                </React.Fragment>
     )
 }
 

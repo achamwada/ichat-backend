@@ -1,4 +1,4 @@
-import React, { createContext } from 'react';
-import { Auth, User } from '../../models';
+import { createContext } from 'react';
+import { Auth } from '../../models';
 
 export const AuthContext = createContext<Auth>({token:'',authenticated: false,data: null});

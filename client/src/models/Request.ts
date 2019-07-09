@@ -14,7 +14,7 @@ export interface Request<T> {
 }
 
 export interface Response<U> {
-  data: U | null;
+  data: U ;
 //   status?: number;
 //   errors?: Array<ResponseError>;
 }
@@ -30,8 +30,8 @@ export interface Loading {
 }
 
 export interface Action<T> {
-  action: string;
-  payload?: T;
+  type: string;
+  payload: T;
 }
 
 export interface User {
@@ -49,8 +49,13 @@ export interface User {
 
 export interface Auth {
   token: string;
-  authenticated?: boolean;
+  authenticated: boolean;
   data: User | null;
-  // loading?: Loading;
-  // error?: Array<ResponseError>;
+  isLoading?: Loading | boolean;
+  isError?: Array<ResponseError> | boolean;
+}
+
+export interface AuthStatusPayload{
+    token: string,
+    data: User | null
 }

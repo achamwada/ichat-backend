@@ -1,19 +1,19 @@
-import React, { useEffect, useState } from 'react';
+import  { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Request, Response, Loading, ResponseError, ReqMethods } from '../models/'
+import { Request, Loading, ResponseError, ReqMethods, User, Response } from '../models/'
 
 export const useApi = <T, U>(req: Request<T>, res?: U,  loading?: Loading, err?: ResponseError) /* : {results: Response<U>, isLoading: Loading, isError: ResponseError }*/ => {
 
     axios.defaults.headers.common["x-auth-token"] = req.token ? req.token : null;
-    //const [results, setResults] = useState<Response<U> | null>(null);
-    const [results, setResults] = useState<U>();
+    const [results, setResults] = useState<Response<User> | null>({data: {user_name: "test", email_address: "SDGHDGH@gmail.com"}});
+    //const [results, setResults] = useState<U | null>(null);
     const [isLoading, setLoading] = useState<Loading | boolean>(false);
-    const [isError, setError] = useState<ResponseError | boolean>(false);
+    const [isError, setError] = useState<Array<ResponseError> | boolean>(false);
 
     useEffect(() => {
 
         try {
-            //if (!results) {
+            if (!results) {
 
                 const fetchData = async () => {
                     setLoading(true);
@@ -25,7 +25,7 @@ export const useApi = <T, U>(req: Request<T>, res?: U,  loading?: Loading, err?:
                         data: req.payload
                     });
 
-                    const data: U = await response.data;
+                    const data: Response<User> = await response.data;
                     console.log('data',data);
                     setResults(data);
 
@@ -35,7 +35,7 @@ export const useApi = <T, U>(req: Request<T>, res?: U,  loading?: Loading, err?:
                 fetchData();
                 setLoading(false);
 
-           // }
+            }
 
         } catch (err) {
             setLoading(false);

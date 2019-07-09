@@ -1,61 +1,53 @@
-import React, { useReducer, useContext, useState, useEffect } from "react";
+import React, { useReducer, useEffect } from "react";
 import { AuthContext } from "./AuthContext";
-import AuthContextReducer from "./AuthContextReducer";
-import { Request, User, Response } from "../../models";
+import { myReducer } from "./AuthContextReducer";
+import { Request, User, ActionTypes } from "../../models";
 import { useApi } from "../../hooks/useApi";
-import { Auth } from '../../models';
+import { Auth } from "../../models";
 
 const AuthContextState: React.FC = props => {
-  const token: string = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNjUwOTk4LCJleHAiOjE1NjI2ODY5OTh9.Nlr9P1IYa2B8RGAN0TBHWXzAaeRBTgpg9DgkZiz4mj4";
+  const token: string =
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNjUwOTk4LCJleHAiOjE1NjI2ODY5OTh9.Nlr9P1IYa2B8RGAN0TBHWXzAaeRBTgpg9DgkZiz4mj4";
 
-  const { results, isLoading, isError } = useApi<Request<null>, User>(
-    {
-      url: "/api/user",
-      method: "GET",
-      token
-    }
-  );
-  //console.log('results',results);
+  const { results, isLoading, isError } = useApi<Request<null>, User>({
+    url: "/api/user",
+    method: "GET",
+    token
+  });
 
-  // const userObject: User | null = results ? results!.data : null; 
-  //const userObject: Response<User> = results;  // 
+  var initialState: Auth = {
+    token: "",
+    authenticated: false,
+    data: null,
+    isLoading,
+    isError
+  };
 
+  const [state, dispatch] = useReducer(myReducer, initialState);
+  //const allData = ...results;
 
+  useEffect(() => {
 
-  const authenticated: boolean = true;
+    console.log("results => ", results);
+    dispatch({
+      type: ActionTypes.CHECK_AUTH,
+      payload: {
+        token,
+        data: results!.data //{_id: "5d112f97ae436c07a7d976ae", user_name: "test", email_address: "SDGHDGH@gmail.com"}
+      }
+    });
+  }, []);
 
-  var initialState: Auth = {token:'',authenticated: false,data: null};
-
-  if(results){
-
-     initialState = {
-      token,
-      authenticated,
-      data: results
-    };
-
-    
-
-  
-
-  }
-
-  const [state, dispatch] = useReducer(AuthContextReducer, initialState);
-  dispatch({type: 'test'});
-  
-  setInterval(() => {
-    console.log('initialState', initialState);
-    console.log('state', state)
-  }, 5000)
-  
-  
+  console.log("state => ", state);
 
   return (
     <AuthContext.Provider
       value={{
-        token,
-        authenticated,
-       data: results!
+        token: state.token,
+        authenticated: state.authenticated,
+        data: state.data,
+        isLoading: state.isLoading,
+        isError: state.isError
       }}
     >
       {props.children}
