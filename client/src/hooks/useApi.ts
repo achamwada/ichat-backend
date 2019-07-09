@@ -1,38 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { timeout } from 'q';
-
-export enum ReqMethods {
-    POST = 'POST',
-    GET = 'GET',
-    PUT = 'PUT',
-    DELETE = 'DELETE'
-}
-
-export interface Request<T> {
-    url: string;
-    method: string,
-    payload?: T,
-    responseType?: string,
-    token: string
-}
-
-export interface Response<U> {
-    data?: U,
-    status?: number,
-    errors?: Array<ResponseError>,
-
-}
-
-export interface ResponseError {
-    message: string,
-    statusCode: number,
-}
-
-export interface Loading {
-    info: string,
-    timeout: number
-}
+import { Request, Response, Loading, ResponseError, ReqMethods } from '../models/'
 
 export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loading, err?: ResponseError) => {
 
@@ -57,13 +25,8 @@ export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loadi
                     });
 
                     const data = await response.data;
-                    // console.log('data', data);
-                    // var responseObj: Response<U> = {
-                    //     data: data
-                    // }
-                    
                     setResults(data);
-                    
+
 
                 }
 
@@ -73,7 +36,6 @@ export const useApi = <T, U>(req: Request<T>, res?: Response<U>, loading?: Loadi
             }
 
         } catch (err) {
-            console.log(err)
             setLoading(false);
             setError(true);
 
