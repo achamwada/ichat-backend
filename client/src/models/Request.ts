@@ -14,7 +14,7 @@ export interface Request<T> {
 }
 
 export interface Response<U> {
-  data: U ;
+  user: U ;
 //   status?: number;
 //   errors?: Array<ResponseError>;
 }

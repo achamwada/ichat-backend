@@ -14,6 +14,7 @@ const AuthContextState: React.FC = props => {
     method: "GET",
     token
   });
+  console.log('results in AuthContextState',results)
 
   var initialState: Auth = {
     token: "",
@@ -28,12 +29,12 @@ const AuthContextState: React.FC = props => {
 
   useEffect(() => {
 
-    console.log("results => ", results);
+    console.log("results => ", results!.user);
     dispatch({
       type: ActionTypes.CHECK_AUTH,
       payload: {
         token,
-        data: results!.data //{_id: "5d112f97ae436c07a7d976ae", user_name: "test", email_address: "SDGHDGH@gmail.com"}
+        data: results!.user //{_id: "5d112f97ae436c07a7d976ae", user_name: "test", email_address: "SDGHDGH@gmail.com"}
       }
     });
   }, []);
