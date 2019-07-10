@@ -1,4 +1,4 @@
 import { createContext } from 'react';
 import { Auth } from '../../models';
 
-export const AuthContext = createContext<Auth>({token:'',authenticated: false,data: null});
+export const AuthContext = createContext<Auth>({user: { email_address: '', user_name: '' }, authenticated: false, loginUser: () => { }, loadUserData: null});

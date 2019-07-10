@@ -3,6 +3,8 @@ import Paper from '@material-ui/core/Paper';
 import Settings from './Settings';
 import TopStories from './TopStories';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { Typography, Divider } from '@material-ui/core';
+import FriendsList from '../../../components/FriendsList';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -21,6 +23,22 @@ const LeftSideBar: React.FC = props => {
       </Paper>
       <Paper className={classes.paperWrapper} style={{ position: 'sticky' }}>
         <TopStories />
+      </Paper>
+
+      <Paper className={classes.paperWrapper}>
+        <Typography
+          variant="h5"
+          component="h3"
+          style={{
+            padding: '1rem',
+            backgroundColor: '#3f51b5',
+            color: '#fff'
+          }}
+        >
+          Recent Activities
+        </Typography>
+        <Divider />
+        <FriendsList />
       </Paper>
     </Fragment>
   );

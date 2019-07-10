@@ -1,11 +1,11 @@
-const express = require("express");
-const jwt = require("jsonwebtoken");
-const config = require("config");
-const bcrypt = require("bcryptjs");
-const DBconn = require("../../config/db");
-const { check, validationResult } = require("express-validator");
-const User = require("../../models/User");
-const auth = require("../../middleware/authentication");
+const express = require('express');
+const jwt = require('jsonwebtoken');
+const config = require('config');
+const bcrypt = require('bcryptjs');
+const DBconn = require('../../../config/db');
+const { check, validationResult } = require('express-validator');
+const User = require('../../models/User');
+const auth = require('../../middleware/authentication');
 const router = express.Router();
 DBconn();
 
@@ -14,13 +14,13 @@ DBconn();
  * Register new user
  */
 router.post(
-  "/",
+  '/',
   [
-    check("user_name", "Username is require")
+    check('user_name', 'Username is require')
       .not()
       .isEmpty(),
-    check("email_address", "An email is required").isEmail(),
-    check("password", "Password is required")
+    check('email_address', 'An email is required').isEmail(),
+    check('password', 'Password is required')
       .not()
       .isEmpty()
   ],
@@ -36,7 +36,7 @@ router.post(
         email_address
       });
 
-      if (isUser) return res.status(400).json({ msg: "User already exists" });
+      if (isUser) return res.status(400).json({ msg: 'User already exists' });
 
       const newUser = new User({
         user_name,
@@ -54,15 +54,15 @@ router.post(
           user_id: user._id
         };
 
-        const token = jwt.sign(payload, config.get("JWT_SECRET"), {
+        const token = jwt.sign(payload, config.get('JWT_SECRET'), {
           expiresIn: 36000
         });
 
-        res.status(200).json({ msg: "registered user", user, token });
+        res.status(200).json({ msg: 'registered user', user, token });
       });
     } catch (err) {
       console.log(err.message);
-      return res.status(500).json({ msg: "Server Error" });
+      return res.status(500).json({ msg: 'Server Error' });
     }
   }
 );
@@ -71,18 +71,18 @@ router.post(
  * GET  /api/user
  * Protected route to logged user details
  */
-router.get("/", auth, async (req, res) => {
+router.get('/', auth, async (req, res) => {
   try {
     const userData = await User.findById(req.body.user.user_id).select(
-      "-password"
+      '-password'
     );
 
-    if (!userData) return res.status(404).json({ msg: "user not found" });
+    if (!userData) return res.status(404).json({ msg: 'user not found' });
 
     return res.status(200).json({ user: userData });
   } catch (error) {
     console.log(error);
-    return res.status(500).json({ msg: "Server Error" });
+    return res.status(500).json({ msg: 'Server Error' });
   }
 });
 
@@ -90,8 +90,8 @@ router.get("/", auth, async (req, res) => {
  * PUT /api/user/:user_id
  * Protected route
  */
-router.put("/", auth, async (req, res) => {
-  const token = req.header("x-auth-token");
+router.put('/', auth, async (req, res) => {
+  const token = req.header('x-auth-token');
 
   const {
     user_name,
@@ -118,15 +118,15 @@ router.put("/", auth, async (req, res) => {
       user_fields.password = await bcrypt.hash(password, salt);
     }
 
-    const decodedToken = jwt.verify(token, config.get("JWT_SECRET"));
+    const decodedToken = jwt.verify(token, config.get('JWT_SECRET'));
     const user_id = decodedToken.user_id;
 
     await User.findByIdAndUpdate(user_id, { $set: user_fields });
 
     // this is not updating on first request
-    return res.status(200).json({ msg: "user updated" });
+    return res.status(200).json({ msg: 'user updated' });
   } catch (error) {
-    return res.status(400).json({ msg: "Bad request" });
+    return res.status(400).json({ msg: 'Bad request' });
   }
 });
 
@@ -135,19 +135,19 @@ router.put("/", auth, async (req, res) => {
  * Protected route that deletes users account
  */
 
-router.delete("/", auth, async (req, res) => {
+router.delete('/', auth, async (req, res) => {
   try {
-    const token = req.header("x-auth-token");
-    const decoded_user = jwt.verify(token, config.get("JWT_SECRET"));
+    const token = req.header('x-auth-token');
+    const decoded_user = jwt.verify(token, config.get('JWT_SECRET'));
 
     const user_id = decoded_user.user_id;
 
     await User.findByIdAndRemove(user_id);
 
-    return res.status(200).json({ msg: "Account Deleted" });
+    return res.status(200).json({ msg: 'Account Deleted' });
   } catch (error) {
     console.log(error.message);
-    return res.status(500).json({ msg: "Server Error" });
+    return res.status(500).json({ msg: 'Server Error' });
   }
 });
 

@@ -1,62 +1,77 @@
+import axios from 'axios';
 import React, { useReducer, useEffect } from 'react';
+import {
+  Action,
+  ActionTypes,
+  Auth,
+  LoginUser,
+  User,
+  UserAuthenticated
+} from '../../models';
+import { setRequestToken } from '../auth/functions';
 import { AuthContext } from './AuthContext';
-import { myReducer } from './AuthContextReducer';
-import { Request, User, ActionTypes } from '../../models';
-import { useApi } from '../../hooks/useApi';
-import { Auth, Action, AuthStatusPayload } from '../../models';
+import { authContextReducer } from './AuthContextReducer';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-const AuthContextState: React.FC = props => {
-  const token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNzUwNTc4LCJleHAiOjE1NjI3ODY1Nzh9.bT3k2xBJyus8CyZCHtL1fgLYoc4B4ltarIn8B_ZHFT0';
+const AuthContextState: React.FC<RouteComponentProps> = props => {
+  const loginUser = async (formData: LoginUser) => {
+    try {
+      const response = await axios.post('/api/auth', {
+        email_address: formData.email_address,
+        password: formData.password
+      });
 
-  const { results, isLoading, isError } = useApi<Request<null>, { user: User }>(
-    {
-      url: '/api/user',
-      method: 'GET',
-      token
+      const data: UserAuthenticated = await response.data;
+      const { token } = data;
+      localStorage.setItem('auth-token', token);
+      dispatch({ type: ActionTypes.LOGIN, payload: null });
+      props.history.push('/');
+    } catch (error) {
+      console.log('error', error);
     }
-  );
+  };
+
+  const loadUserData = async () => {
+    try {
+      setRequestToken();
+      const rawData = await axios.get('/api/user');
+      const userData: { user: User } = await rawData.data;
+
+      let LoadUserAction: Action<User> = {
+        type: ActionTypes.LOAD_USER_DATA,
+        payload: userData.user
+      };
+
+      dispatch(LoadUserAction);
+    } catch (error) {
+      console.log('error2', error);
+    }
+  };
 
   const initialState: Auth = {
-    token: '',
+    user: { email_address: '', user_name: '' },
     authenticated: false,
-    data: null,
-    isLoading,
-    isError
+    loading: false,
+    errors: false,
+    loginUser: loginUser,
+    loadUserData: loadUserData
   };
 
-  const [state, dispatch] = useReducer(myReducer, initialState);
-
-  let resultsData: User | null = null;
-  let dataIn: Action<AuthStatusPayload>;
-  try {
-    if (results && null !== results.user) {
-      resultsData = results.user;
-    }
-  } catch (error) {
-    console.log(error);
-  }
-
-  dataIn = {
-    type: ActionTypes.CHECK_AUTH,
-    payload: {
-      token,
-      data: resultsData
-    }
-  };
+  const [state, dispatch] = useReducer(authContextReducer, initialState);
 
   useEffect(() => {
-    dispatch(dataIn);
-  }, [dataIn.payload.data]);
+    loadUserData();
+  }, []);
 
   return (
     <AuthContext.Provider
       value={{
-        token: state.token,
+        user: state.user,
         authenticated: state.authenticated,
-        data: state.data,
-        isLoading: state.isLoading,
-        isError: state.isError
+        loading: state.loading,
+        errors: state.errors,
+        loginUser: state.loginUser,
+        loadUserData: state.loadUserData
       }}
     >
       {props.children}
@@ -64,4 +79,4 @@ const AuthContextState: React.FC = props => {
   );
 };
 
-export default AuthContextState;
+export default withRouter(AuthContextState);

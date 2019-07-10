@@ -1,13 +1,12 @@
-import React, { Fragment, useState } from 'react';
-import { makeStyles, Theme, createStyles } from '@material-ui/core/styles';
-import MenuItem from '@material-ui/core/MenuItem';
-import TextField from '@material-ui/core/TextField';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
-import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import TextField from '@material-ui/core/TextField';
+import React, { Fragment, useState } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,12 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-interface State {
+/*interface State {
   name: string;
   age: string;
   multiline: string;
   currency: string;
-}
+}*/
 
 const UserStatus: React.FC = props => {
   const classes = useStyles();
@@ -83,14 +82,17 @@ const UserStatus: React.FC = props => {
             value={message}
             label="Message..."
             fullWidth
+            onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(evt)
+            }
           />
         </DialogContent>
         <DialogActions>
           <Button variant="contained" color="primary" onClick={handleClose}>
-            Primary
+            Send
           </Button>
           <Button variant="contained" color="secondary" onClick={handleClose}>
-            Secondary
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>

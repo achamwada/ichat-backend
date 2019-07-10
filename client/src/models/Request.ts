@@ -1,8 +1,13 @@
 export enum ReqMethods {
-  POST = "POST",
-  GET = "GET",
-  PUT = "PUT",
-  DELETE = "DELETE"
+  POST = 'POST',
+  GET = 'GET',
+  PUT = 'PUT',
+  DELETE = 'DELETE'
+}
+
+export interface SignIn {
+  email_address: string;
+  password: string;
 }
 
 export interface Request<T> {
@@ -10,7 +15,7 @@ export interface Request<T> {
   method: string;
   payload?: T;
   responseType?: string;
-  token: string;
+  token?: string | null;
 }
 
 export interface Response<U> {
@@ -29,31 +34,103 @@ export interface Loading {
 
 export interface Action<T> {
   type: string;
-  payload: T;
+  payload: T | any;
 }
 
 export interface User {
   user_name: string;
   email_address: string;
-  firstName?: string;
-  lastName?: string;
   age?: number;
   country?: string;
   city?: string;
-  phoneNumber?: string;
   __v?: number;
   _id?: string;
+  password?: string;
+  first_name?: string;
+  last_name?: string;
+  phone_number?: string;
+  avatar?: string;
+  skills?: string;
+  bio?: string;
+  date_added?: Date;
 }
 
 export interface Auth {
-  token: string;
+  user: User;
   authenticated: boolean;
-  data: User | null;
-  isLoading?: Loading | boolean;
-  isError?: Array<ResponseError> | boolean;
+  loading?: Loading | boolean;
+  errors?: Array<ResponseError> | boolean;
+  loginUser: Function;
+  loadUserData: Function | null;
 }
 
 export interface AuthStatusPayload {
-  token: string,
-  data?: User | null
+  token?: string | null;
+  data?: User | null;
+}
+
+export interface LoginUser {
+  email_address: string;
+  password: string;
+}
+
+export interface UserAuthenticated {
+  token: string;
+  authenticated: boolean;
+}
+
+export interface FriendStructure {
+  relating_user: string;
+  related_user: User | null;
+  relationship: string;
+  acceptance: boolean;
+  date_added: number | string;
+}
+
+export interface FriendList {
+  friends: Array<FriendStructure> | null;
+  addFriend: (email: string) => void;
+  getAllFriends: () => void;
+}
+
+export enum relationship {
+  acquaintance = 'acquaintance',
+  close = 'close',
+  professional = 'professional',
+  none = ''
+}
+
+export interface Comment {
+  userID: string;
+  message: string;
+  date_added: Date;
+  inner_comments: Array<Status>;
+}
+export interface Status {
+  _id: string;
+  userID: User;
+  status: string;
+  date_created: Date;
+  likes: number;
+  views: number;
+  image: [{ url: string }];
+  comments: Array<Comment>;
+}
+
+export interface StatusState {
+  statuses: Array<Status> | null;
+  getStatuses: () => void;
+}
+
+
+export interface Chat{
+  from: string,
+  message: string,
+  channel: string,
+  date_created: string,
+
+}
+
+export interface ChatList{
+  chats: Array<Chat>
 }
