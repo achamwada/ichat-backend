@@ -6,6 +6,7 @@ import LeftSideBar from '../components/layouts/sidebars/LeftSideBar';
 import FriendsList from '../components/FriendsList';
 import Divider from '@material-ui/core/Divider';
 import UserStatus from '../components/chats/UserStatus';
+import Hidden from '@material-ui/core/Hidden';
 const Home = () => {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
@@ -21,26 +22,30 @@ const Home = () => {
   const classes = useStyles();
   return (
     <Fragment>
-      <Grid item sm={3}>
-        <LeftSideBar />
-      </Grid>
+      <Hidden smDown>
+        <Grid item sm={3}>
+          <LeftSideBar />
+        </Grid>
+      </Hidden>
 
-      <Grid item sm={5}>
+      <Grid item xs={12} sm={5} xl={5}>
         <UserStatus />
         {chatsList.map(function(item, i) {
           return <ChatItem key={i} />;
         })}
       </Grid>
 
-      <Grid item sm={4}>
-        <Paper className={classes.root}>
-          <Typography variant="h5" component="h3">
-            Recent Activities
-          </Typography>
-          <Divider />
-          <FriendsList />
-        </Paper>
-      </Grid>
+      <Hidden smDown>
+        <Grid item sm={4} xl={4}>
+          <Paper className={classes.root}>
+            <Typography variant="h5" component="h3">
+              Recent Activities
+            </Typography>
+            <Divider />
+            <FriendsList />
+          </Paper>
+        </Grid>
+      </Hidden>
     </Fragment>
   );
 };
