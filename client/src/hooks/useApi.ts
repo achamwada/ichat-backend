@@ -1,8 +1,8 @@
-import  { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Request, Loading, ResponseError, ReqMethods, User, Response } from '../models/'
 
-export const useApi = <T, U>(req: Request<T>, res?: U,  loading?: Loading, err?: ResponseError)  : {results: U | null , isLoading: Loading | boolean, isError: Array<ResponseError> | boolean } => {
+export const useApi = <T, U>(req: Request<T>, res?: U, loading?: Loading, err?: ResponseError): { results: U | null, isLoading: Loading | boolean, isError: Array<ResponseError> | boolean } => {
 
     axios.defaults.headers.common["x-auth-token"] = req.token ? req.token : null;
     const [results, setResults] = useState<U | null>(null);

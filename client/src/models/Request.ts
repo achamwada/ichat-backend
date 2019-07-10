@@ -14,9 +14,7 @@ export interface Request<T> {
 }
 
 export interface Response<U> {
-  user: U ;
-//   status?: number;
-//   errors?: Array<ResponseError>;
+  user: U;
 }
 
 export interface ResponseError {
@@ -43,8 +41,8 @@ export interface User {
   country?: string;
   city?: string;
   phoneNumber?: string;
-  __v?:number;
-  _id?:string;
+  __v?: number;
+  _id?: string;
 }
 
 export interface Auth {
@@ -55,7 +53,7 @@ export interface Auth {
   isError?: Array<ResponseError> | boolean;
 }
 
-export interface AuthStatusPayload{
-    token: string,
-    data: User | any
+export interface AuthStatusPayload {
+  token: string,
+  data?: User | null
 }

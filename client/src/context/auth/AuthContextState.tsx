@@ -6,7 +6,8 @@ import { useApi } from '../../hooks/useApi';
 import { Auth, Action, AuthStatusPayload } from '../../models';
 
 const AuthContextState: React.FC = props => {
-  const token: string = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNjg3MDk0LCJleHAiOjE1NjI3MjMwOTR9.Fa05cpUVXybcfpsc7NXl5TmU3eo0boSSypMKPccp-jc';
+  const token: string =
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyNzQxNDMzLCJleHAiOjE1NjI3Nzc0MzN9.53EYmsCrGsK5gyr6nKWQ6luvIYFTt09sLsjG_vzUr88';
 
   const { results, isLoading, isError } = useApi<Request<null>, { user: User }>(
     {
@@ -16,7 +17,7 @@ const AuthContextState: React.FC = props => {
     }
   );
 
-  var initialState: Auth = {
+  const initialState: Auth = {
     token: '',
     authenticated: false,
     data: null,
@@ -27,28 +28,22 @@ const AuthContextState: React.FC = props => {
   const [state, dispatch] = useReducer(myReducer, initialState);
 
   let resultsData: User | null = null;
-  let dataIn: Action<AuthStatusPayload> = {
+  let dataIn: Action<AuthStatusPayload>;
+  try {
+    if (results && null !== results.user) {
+      resultsData = results.user;
+    }
+  } catch (error) {
+    console.log(error);
+  }
+
+  dataIn = {
     type: ActionTypes.CHECK_AUTH,
     payload: {
       token,
       data: resultsData
     }
   };
-  try {
-    if (results && null !== results.user) {
-      resultsData = results.user;
-    }
-    resultsData = resultsData;
-    dataIn = {
-      type: ActionTypes.CHECK_AUTH,
-      payload: {
-        token,
-        data: resultsData
-      }
-    };
-  } catch (error) {
-    console.log(error);
-  }
 
   useEffect(() => {
     dispatch(dataIn);

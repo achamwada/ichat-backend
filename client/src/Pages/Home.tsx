@@ -7,11 +7,10 @@ const Home: React.FC = () => {
   const auth = useContext(AuthContext);
 
   const { token, data, authenticated } = auth;
-  //console.log({ token, authenticated, data } );
   return (
     <React.Fragment>
       <Header />
-      test {JSON.stringify({ token, data, authenticated } )}
+      test {JSON.stringify({ token, data, authenticated })}
       <Footer />
     </React.Fragment>
   );
