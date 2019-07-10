@@ -1,18 +1,47 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../context/';
-import Header from '../Pages/layouts/Header';
-import Footer from '../Pages/layouts/Footer';
+import React, { Fragment, useState } from 'react';
+import { Grid, Paper, Typography } from '@material-ui/core/';
+import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import ChatItem from '../components/chats/ChatItem';
+import LeftSideBar from '../components/layouts/sidebars/LeftSideBar';
+import FriendsList from '../components/FriendsList';
+import Divider from '@material-ui/core/Divider';
+import UserStatus from '../components/chats/UserStatus';
+const Home = () => {
+  const useStyles = makeStyles((theme: Theme) =>
+    createStyles({
+      root: {
+        padding: theme.spacing(3),
+        margin: theme.spacing(1)
+      }
+    })
+  );
 
-const Home: React.FC = () => {
-  const auth = useContext(AuthContext);
+  const [chatsList, setChatList] = useState([1, 2, 3]);
 
-  const { token, data, authenticated } = auth;
+  const classes = useStyles();
   return (
-    <React.Fragment>
-      <Header />
-      test {JSON.stringify({ token, data, authenticated })}
-      <Footer />
-    </React.Fragment>
+    <Fragment>
+      <Grid item sm={3}>
+        <LeftSideBar />
+      </Grid>
+
+      <Grid item sm={5}>
+        <UserStatus />
+        {chatsList.map(function(item, i) {
+          return <ChatItem key={i} />;
+        })}
+      </Grid>
+
+      <Grid item sm={4}>
+        <Paper className={classes.root}>
+          <Typography variant="h5" component="h3">
+            Recent Activities
+          </Typography>
+          <Divider />
+          <FriendsList />
+        </Paper>
+      </Grid>
+    </Fragment>
   );
 };
 

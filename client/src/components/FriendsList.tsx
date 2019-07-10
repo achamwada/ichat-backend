@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Friends: React.FC = props => {
+const FriendsList: React.FC = props => {
   const classes = useStyles();
 
   return (
@@ -55,4 +55,4 @@ const Friends: React.FC = props => {
   );
 };
 
-export default Friends;
+export default FriendsList;
