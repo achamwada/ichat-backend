@@ -47,7 +47,7 @@ router.post(
           httpOnly: true
         })
 
-        return res.status(200).json({ token });
+        return res.status(200).json({ token, authenticated: true });
       });
     } catch (error) {
       console.log(error.message);

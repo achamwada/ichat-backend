@@ -10,6 +10,11 @@ export interface SignIn {
   password: string;
 }
 
+export interface SignIn {
+  email_address: string;
+  password: string;
+}
+
 export interface Request<T> {
   url: string;
   method: string;

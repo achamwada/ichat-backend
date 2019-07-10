@@ -7,7 +7,10 @@ import Typography from '@material-ui/core/Typography';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import InboxIcon from '@material-ui/icons/Inbox';
 import React, { Fragment } from 'react';
+<<<<<<< HEAD
 import { Link } from 'react-router-dom';
+=======
+>>>>>>> ddecfcb... starting login ui
 
 // const useStyles = makeStyles((theme: Theme) =>
 //   createStyles({

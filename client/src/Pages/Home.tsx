@@ -46,6 +46,8 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
 
   //history.push('/login');
 
+  //history.push('/login');
+
   const classes = useStyles();
   return (
     <Fragment>
@@ -68,6 +70,12 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
       </Grid>
       <Hidden smDown>
         <Grid item sm={3} xl={3}>
+          <Contacts />
+        </Grid>
+      </Hidden>
+
+      <Hidden smDown>
+        <Grid item sm={2} xl={2}>
           <Contacts />
         </Grid>
       </Hidden>
