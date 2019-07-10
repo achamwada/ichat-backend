@@ -11,6 +11,7 @@ import NotFoundPage from './Pages/NotFoundPage';
 import AuthContextState from './context/auth/AuthContextState';
 import Header from './components/layouts/Header';
 import Footer from './components/layouts/Footer';
+import Login from './Pages/Login';
 
 const App: React.FC = () => {
   return (
@@ -26,10 +27,11 @@ const App: React.FC = () => {
         >
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/" component={Chats} />
+            <Route exact path="/chat" component={Chats} />
             <Route exact path="/profile" component={Profile} />
             <Route exact path="/about" component={About} />
             <Route exact path="/friends" component={Friends} />
+            <Route exact path="/login" component={Login} />
             <Route exact path="*" component={NotFoundPage} />
           </Switch>
         </Grid>

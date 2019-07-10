@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/auth/AuthContext';
 import {
   fade,
   makeStyles,
@@ -170,72 +171,86 @@ const Header: React.FC = props => {
   );
 
   return (
-    <div className={classes.grow}>
-      <AppBar position="fixed">
-        <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="Open drawer"
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            iChat
-          </Typography>
-          <div className={classes.search}>
-            <div className={classes.searchIcon}>
-              <SearchIcon />
+    <AuthContext.Consumer>
+      {({ token, authenticated, data }) => {
+        console.log({ token, authenticated, data });
+        if (!authenticated) {
+          return null;
+        } else {
+          return (
+            <div className={classes.grow}>
+              <AppBar position="fixed">
+                <Toolbar>
+                  <IconButton
+                    edge="start"
+                    className={classes.menuButton}
+                    color="inherit"
+                    aria-label="Open drawer"
+                  >
+                    <MenuIcon />
+                  </IconButton>
+                  <Typography className={classes.title} variant="h6" noWrap>
+                    iChat
+                  </Typography>
+                  <div className={classes.search}>
+                    <div className={classes.searchIcon}>
+                      <SearchIcon />
+                    </div>
+                    <InputBase
+                      placeholder="Search…"
+                      classes={{
+                        root: classes.inputRoot,
+                        input: classes.inputInput
+                      }}
+                      inputProps={{ 'aria-label': 'Search' }}
+                    />
+                  </div>
+                  <div className={classes.grow} />
+                  <div className={classes.sectionDesktop}>
+                    <IconButton aria-label="Show 4 new mails" color="inherit">
+                      <Badge badgeContent={4} color="secondary">
+                        <MailIcon />
+                      </Badge>
+                    </IconButton>
+                    <IconButton
+                      aria-label="Show 17 new notifications"
+                      color="inherit"
+                    >
+                      <Badge badgeContent={17} color="secondary">
+                        <NotificationsIcon />
+                      </Badge>
+                    </IconButton>
+                    <IconButton
+                      edge="end"
+                      aria-label="Account of current user"
+                      aria-controls={menuId}
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
+                      color="inherit"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </div>
+                  <div className={classes.sectionMobile}>
+                    <IconButton
+                      aria-label="Show more"
+                      aria-controls={mobileMenuId}
+                      aria-haspopup="true"
+                      onClick={handleMobileMenuOpen}
+                      color="inherit"
+                    >
+                      <MoreIcon />
+                    </IconButton>
+                  </div>
+                </Toolbar>
+              </AppBar>
+              {renderMobileMenu}
+              {renderMenu}
             </div>
-            <InputBase
-              placeholder="Search…"
-              classes={{
-                root: classes.inputRoot,
-                input: classes.inputInput
-              }}
-              inputProps={{ 'aria-label': 'Search' }}
-            />
-          </div>
-          <div className={classes.grow} />
-          <div className={classes.sectionDesktop}>
-            <IconButton aria-label="Show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton aria-label="Show 17 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              edge="end"
-              aria-label="Account of current user"
-              aria-controls={menuId}
-              aria-haspopup="true"
-              onClick={handleProfileMenuOpen}
-              color="inherit"
-            >
-              <AccountCircle />
-            </IconButton>
-          </div>
-          <div className={classes.sectionMobile}>
-            <IconButton
-              aria-label="Show more"
-              aria-controls={mobileMenuId}
-              aria-haspopup="true"
-              onClick={handleMobileMenuOpen}
-              color="inherit"
-            >
-              <MoreIcon />
-            </IconButton>
-          </div>
-        </Toolbar>
-      </AppBar>
-      {renderMobileMenu}
-      {renderMenu}
-    </div>
+          );
+        }
+      }}
+    </AuthContext.Consumer>
   );
 };
 

@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../context/auth/AuthContext';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
@@ -22,24 +23,34 @@ const Footer: React.FC = props => {
   }
 
   return (
-    <Grid container direction="column" className={classes.container}>
-      <Grid item sm={12}>
-        <Paper square style={{ width: '100%' }}>
-          <Tabs
-            value={value}
-            indicatorColor="primary"
-            textColor="primary"
-            onChange={handleChange}
-          >
-            <Tab label="News Feed" />
-            <Tab label="Chats" />
-            <Tab label="Friends" />
-            <Tab label="Profile" />
-            <Tab label="Contact" />
-          </Tabs>
-        </Paper>
-      </Grid>
-    </Grid>
+    <AuthContext.Consumer>
+      {({ token, authenticated, data }) => {
+        if (!authenticated) {
+          return null;
+        } else {
+          return (
+            <Grid container direction="column" className={classes.container}>
+              <Grid item sm={12}>
+                <Paper square style={{ width: '100%' }}>
+                  <Tabs
+                    value={value}
+                    indicatorColor="primary"
+                    textColor="primary"
+                    onChange={handleChange}
+                  >
+                    <Tab label="News Feed" />
+                    <Tab label="Chats" />
+                    <Tab label="Friends" />
+                    <Tab label="Profile" />
+                    <Tab label="Contact" />
+                  </Tabs>
+                </Paper>
+              </Grid>
+            </Grid>
+          );
+        }
+      }}
+    </AuthContext.Consumer>
   );
 };
 export default Footer;
