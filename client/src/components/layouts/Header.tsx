@@ -20,6 +20,7 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -176,7 +177,7 @@ const Header: React.FC = props => {
       {({ token, authenticated, data }) => {
         console.log({ token, authenticated, data });
         if (!authenticated) {
-          return null;
+          return null; //<Redirect to="/login" push />;
         } else {
           return (
             <div className={classes.grow}>
