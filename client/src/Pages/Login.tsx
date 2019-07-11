@@ -1,8 +1,10 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useContext } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
 import LoginForm from '../components/LoginForm';
+import { AuthContext } from '../context/auth/AuthContext';
+import { Redirect } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,10 +22,12 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Login = () => {
   const classes = useStyles();
+  //const { authenticated } = useContext(AuthContext);
+  // console.log('match', match);
   return (
     <Fragment>
-      <Grid container direction="row" alignContent="center">
-        <Grid item sm={8} spacing={3}>
+      <Grid container direction="row" alignContent="center" spacing={3}>
+        <Grid item sm={8}>
           Left side
         </Grid>
 

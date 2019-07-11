@@ -7,7 +7,7 @@ import { Auth, Action, AuthStatusPayload } from '../../models';
 
 const AuthContextState: React.FC = props => {
   const token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyODM5MDMwLCJleHAiOjE1NjI4NzUwMzB9.W2SrQLX95YABaujHEyHmX0I72gYAKxuqzU9cMZeccOk';
+    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyODc3NzQ3LCJleHAiOjE1NjI5MTM3NDd9.HQuRbHgbAY-I6RfMUW_aO7t90-V7MVwpKn_PLowfPI0v';
 
   const { results, isLoading, isError } = useApi<Request<null>, { user: User }>(
     {
