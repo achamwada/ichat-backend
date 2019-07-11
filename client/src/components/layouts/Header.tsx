@@ -180,7 +180,7 @@ const Header: React.FC = props => {
         } else {
           return (
             <div className={classes.grow}>
-              <AppBar position="fixed">
+              <AppBar position="fixed" style={{ backgroundColor: '#3f51b5' }}>
                 <Toolbar>
                   <IconButton
                     edge="start"
