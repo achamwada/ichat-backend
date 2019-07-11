@@ -7,11 +7,13 @@ import FriendsList from '../components/FriendsList';
 import Divider from '@material-ui/core/Divider';
 import UserStatus from '../components/chats/UserStatus';
 import Hidden from '@material-ui/core/Hidden';
+import Contacts from '../components/chats/Contacts';
+
 const Home = () => {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
-        padding: theme.spacing(3),
+        //padding: theme.spacing(3),
         margin: theme.spacing(1)
       }
     })
@@ -28,22 +30,35 @@ const Home = () => {
         </Grid>
       </Hidden>
 
-      <Grid item xs={12} sm={5} xl={5}>
+      <Grid item xs={12} sm={4} xl={4}>
         <UserStatus />
         {chatsList.map(function(item, i) {
           return <ChatItem key={i} />;
         })}
       </Grid>
-
       <Hidden smDown>
-        <Grid item sm={4} xl={4}>
+        <Grid item sm={3} xl={3}>
           <Paper className={classes.root}>
-            <Typography variant="h5" component="h3">
+            <Typography
+              variant="h5"
+              component="h3"
+              style={{
+                padding: '1rem',
+                backgroundColor: '#3f51b5',
+                color: '#fff'
+              }}
+            >
               Recent Activities
             </Typography>
             <Divider />
             <FriendsList />
           </Paper>
+        </Grid>
+      </Hidden>
+
+      <Hidden smDown>
+        <Grid item sm={2} xl={2}>
+          <Contacts />
         </Grid>
       </Hidden>
     </Fragment>

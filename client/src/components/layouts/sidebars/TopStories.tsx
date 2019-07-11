@@ -30,6 +30,13 @@ function Row(props: ListChildComponentProps) {
 
   return (
     <Fragment>
+      <Typography
+        variant="h5"
+        component="h3"
+        style={{ padding: '1rem', backgroundColor: '#3f51b5', color: '#fff' }}
+      >
+        Top Stories
+      </Typography>
       <List>
         <ListItem alignItems="flex-start">
           <ListItemAvatar>

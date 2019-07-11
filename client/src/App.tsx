@@ -23,7 +23,12 @@ const App: React.FC = () => {
           direction="row"
           justify="center"
           alignItems="baseline"
-          style={{ padding: '5px', marginTop: '4em' }}
+          style={{
+            padding: '5px',
+            maxWidth: '80%',
+            margin: 'auto',
+            marginTop: '4em'
+          }}
         >
           <Switch>
             <Route exact path="/" component={Home} />

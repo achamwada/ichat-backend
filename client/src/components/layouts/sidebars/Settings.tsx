@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
+import Typography from '@material-ui/core/Typography';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,6 +27,13 @@ const SettingSideBar: React.FC = props => {
 
   return (
     <Fragment>
+      <Typography
+        variant="h5"
+        component="h3"
+        style={{ padding: '1rem', backgroundColor: '#3f51b5', color: '#fff' }}
+      >
+        Settings
+      </Typography>
       <List component="nav" aria-label="Main mailbox folders">
         <ListItem button>
           <ListItemIcon>

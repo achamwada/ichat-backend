@@ -24,7 +24,8 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     grow: {
-      flexGrow: 1
+      flexGrow: 1,
+      marginBottom: theme.spacing(1)
     },
     menuButton: {
       marginRight: theme.spacing(2)
