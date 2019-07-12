@@ -51,7 +51,7 @@ export interface User {
 }
 
 export interface Auth {
-  user: User | null;
+  user: User;
   authenticated: boolean;
   loading?: Loading | boolean;
   errors?: Array<ResponseError> | boolean;

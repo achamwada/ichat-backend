@@ -24,6 +24,15 @@ export const myReducer = <T>(initStateData: Auth, action: Action<T>) => {
 
     case ActionTypes.CHECK_AUTH:
       return checkStatus(initStateData, action.payload);
+    
+      case ActionTypes.LOAD_USER_DATA:
+          return {
+            ...initStateData,
+            //user: action.payload,
+            authenticated: true,
+            loading: false,
+            errors: false
+          };
 
     default:
       return initStateData;

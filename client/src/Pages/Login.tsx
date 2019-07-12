@@ -1,14 +1,10 @@
-import React, { Fragment, useContext, useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import LoginForm from '../components/forms/LoginForm';
-import { AuthContext } from '../context/auth/AuthContext';
-import { Redirect } from 'react-router-dom';
-import { useApi } from '../hooks/useApi';
-import { Request, SignIn, User } from '../models/';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import axios from 'axios';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
+import React, { Fragment, useEffect, useState } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import LoginForm from '../components/forms/LoginForm';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -58,10 +54,6 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     } catch (error) {
       console.log(error);
     }
-
-    return () => {
-      console.log('cleanup');
-    };
   }, [state]);
 
   return (

@@ -38,7 +38,6 @@ export const useApi = <T, U>(req: Request<T>, res?: U, loading?: Loading, err?: 
         } catch (err) {
             setLoading(false);
             setError(true);
-            console.log("ERROR HERE")
 
         }
 

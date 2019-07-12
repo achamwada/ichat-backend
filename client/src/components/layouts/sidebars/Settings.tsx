@@ -1,13 +1,13 @@
-import React, { Fragment } from 'react';
-import { createStyles, Theme, makeStyles } from '@material-ui/core/styles';
+import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
 import ListItem, { ListItemProps } from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import Divider from '@material-ui/core/Divider';
-import InboxIcon from '@material-ui/icons/Inbox';
-import DraftsIcon from '@material-ui/icons/Drafts';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import DraftsIcon from '@material-ui/icons/Drafts';
+import InboxIcon from '@material-ui/icons/Inbox';
+import React, { Fragment } from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -23,7 +23,7 @@ function ListItemLink(props: ListItemProps<'a', { button?: true }>) {
 }
 
 const SettingSideBar: React.FC = props => {
-  const classes = useStyles();
+  //const classes = useStyles();
 
   return (
     <Fragment>

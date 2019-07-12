@@ -21,7 +21,7 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
   );
 
   const [chatsList, setChatList] = useState([1, 2, 3]);
-  console.log('history', history);
+
   //history.push('/login');
 
   const classes = useStyles();

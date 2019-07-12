@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useReducer } from 'react';
+import React, { useReducer, useEffect } from 'react';
 import {
   Action,
   ActionTypes,
@@ -14,7 +14,6 @@ import { myReducer } from './AuthContextReducer';
 
 const AuthContextState: React.FC = props => {
   const token: string | null = getRequestToken();
-  console.log('this token is', token);
 
   const loginUser = async (formData: LoginUser) => {
     try {
@@ -43,16 +42,13 @@ const AuthContextState: React.FC = props => {
       };
 
       dispatch(LoadUserAction);
-
-      console.log('data123', userData);
     } catch (error) {
       console.log('error2', error);
     }
   };
-  loadUserData();
 
   const initialState: Auth = {
-    user: null,
+    user: { email_address: 'test', user_name: 'a' },
     authenticated: false,
     loading: false,
     errors: false,
@@ -61,6 +57,10 @@ const AuthContextState: React.FC = props => {
   };
 
   const [state, dispatch] = useReducer(myReducer, initialState);
+
+  useEffect(() => {
+    loadUserData();
+  }, []);
 
   return (
     <AuthContext.Provider

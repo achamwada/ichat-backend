@@ -1,29 +1,26 @@
-import React, { useContext } from 'react';
-import { RouteComponentProps } from 'react-router-dom';
-import { withRouter } from 'react-router-dom';
-
-import { AuthContext } from '../../context/auth/AuthContext';
+import AppBar from '@material-ui/core/AppBar';
+import Badge from '@material-ui/core/Badge';
+import IconButton from '@material-ui/core/IconButton';
+import InputBase from '@material-ui/core/InputBase';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
 import {
+  createStyles,
   fade,
   makeStyles,
-  Theme,
-  createStyles
+  Theme
 } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import InputBase from '@material-ui/core/InputBase';
-import Badge from '@material-ui/core/Badge';
-import MenuItem from '@material-ui/core/MenuItem';
-import Menu from '@material-ui/core/Menu';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import MailIcon from '@material-ui/icons/Mail';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import MenuIcon from '@material-ui/icons/Menu';
 import MoreIcon from '@material-ui/icons/MoreVert';
-import { Redirect } from 'react-router-dom';
+import NotificationsIcon from '@material-ui/icons/Notifications';
+import SearchIcon from '@material-ui/icons/Search';
+import React from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 interface ChildComponentProps extends RouteComponentProps<any> {}
 
@@ -94,7 +91,7 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Header: React.SFC<ChildComponentProps> = ({ history }) => {
   const classes = useStyles();
-  console.log('history', history);
+
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [
     mobileMoreAnchorEl,
@@ -181,7 +178,6 @@ const Header: React.SFC<ChildComponentProps> = ({ history }) => {
   return (
     <AuthContext.Consumer>
       {({ authenticated }) => {
-        console.log({ authenticated });
         if (!authenticated) {
           //history.push('/login');
           return null;

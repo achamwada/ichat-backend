@@ -1,14 +1,14 @@
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import { FixedSizeList, ListChildComponentProps } from 'react-window';
-import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
+import Divider from '@material-ui/core/Divider';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import ListItemText from '@material-ui/core/ListItemText';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
+import PropTypes from 'prop-types';
+import React, { Fragment } from 'react';
+import { FixedSizeList, ListChildComponentProps } from 'react-window';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 function Row(props: ListChildComponentProps) {
-  const { index, style } = props;
+  //const { index, style } = props;
   const classes = useStyles();
 
   return (

@@ -1,11 +1,10 @@
-import React, { useContext } from 'react';
-import { AuthContext } from '../../context/auth/AuthContext';
-import Paper from '@material-ui/core/Paper';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
 import { Grid } from '@material-ui/core';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import { Link } from 'react-router-dom';
+import Paper from '@material-ui/core/Paper';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Tab from '@material-ui/core/Tab';
+import Tabs from '@material-ui/core/Tabs';
+import React from 'react';
+import { AuthContext } from '../../context/auth/AuthContext';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
