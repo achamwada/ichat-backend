@@ -8,11 +8,12 @@ import {
   User,
   UserAuthenticated
 } from '../../models';
-import { getRequestToken, setRequestToken } from '../auth/functions';
+import { setRequestToken } from '../auth/functions';
 import { AuthContext } from './AuthContext';
-import { myReducer } from './AuthContextReducer';
+import { authContextReducer } from './AuthContextReducer';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-const AuthContextState: React.FC = props => {
+const AuthContextState: React.FC<RouteComponentProps> = props => {
   const loginUser = async (formData: LoginUser) => {
     try {
       const response = await axios.post('/api/auth', {
@@ -23,6 +24,8 @@ const AuthContextState: React.FC = props => {
       const data: UserAuthenticated = await response.data;
       const { token } = data;
       localStorage.setItem('auth-token', token);
+      dispatch({ type: ActionTypes.LOGIN, payload: null });
+      props.history.push('/');
     } catch (error) {
       console.log('error', error);
     }
@@ -50,11 +53,11 @@ const AuthContextState: React.FC = props => {
     authenticated: false,
     loading: false,
     errors: false,
-    loadUser: loginUser,
+    loginUser: loginUser,
     loadUserData: loadUserData
   };
 
-  const [state, dispatch] = useReducer(myReducer, initialState);
+  const [state, dispatch] = useReducer(authContextReducer, initialState);
 
   useEffect(() => {
     loadUserData();
@@ -67,7 +70,7 @@ const AuthContextState: React.FC = props => {
         authenticated: state.authenticated,
         loading: state.loading,
         errors: state.errors,
-        loadUser: state.loadUser,
+        loginUser: state.loginUser,
         loadUserData: state.loadUserData
       }}
     >
@@ -76,4 +79,4 @@ const AuthContextState: React.FC = props => {
   );
 };
 
-export default AuthContextState;
+export default withRouter(AuthContextState);

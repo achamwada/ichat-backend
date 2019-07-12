@@ -55,7 +55,7 @@ export interface Auth {
   authenticated: boolean;
   loading?: Loading | boolean;
   errors?: Array<ResponseError> | boolean;
-  loadUser: Function | null,
+  loginUser: Function,
   loadUserData: Function | null
 }
 

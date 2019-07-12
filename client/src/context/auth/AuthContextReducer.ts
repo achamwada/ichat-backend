@@ -30,15 +30,29 @@ const loadUserData = (initialState: Auth, payload: User) =>{
 
 }
 
-export const myReducer = <T>(initStateData: Auth, action: Action<T>) => {
+
+const LoginUser = (initialState: Auth) =>{
+
+  return {
+    ...initialState,
+    authenticated: true,
+    loading: false,
+    errors: false
+  };
+
+}
+
+export const authContextReducer = <T>(initStateData: Auth, action: Action<T>) => {
 
   switch (action.type) {
 
     case ActionTypes.CHECK_AUTH:
       return checkStatus(initStateData, action.payload);
     
-      case ActionTypes.LOAD_USER_DATA:
+    case ActionTypes.LOAD_USER_DATA:
           return loadUserData(initStateData, action.payload);
+    case ActionTypes.LOGIN: 
+          return LoginUser(initStateData)
 
     default:
       return initStateData;

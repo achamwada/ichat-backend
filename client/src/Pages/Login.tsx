@@ -1,9 +1,10 @@
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import axios from 'axios';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState, useContext } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import LoginForm from '../components/forms/LoginForm';
+import { AuthContext } from '../context/auth/AuthContext';
 
 /*const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -24,8 +25,7 @@ import LoginForm from '../components/forms/LoginForm';
 }*/
 //interface
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  //const classes = useStyles();
-  //const { authenticated } = useContext(AuthContext);
+  const { loginUser } = useContext(AuthContext);
 
   const [state, setstate] = useState({
     email_address: '',
@@ -33,26 +33,8 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
   });
 
   useEffect(() => {
-    const fetchData = async () => {
-      const response = await axios.post('/api/auth', {
-        email_address: state.email_address,
-        password: state.password
-      });
+    loginUser(state);
 
-      const data: {
-        token: string;
-        authenticated: boolean;
-      } = await response.data;
-      const { token } = data;
-      localStorage.setItem('auth-token', token);
-      history.push('/');
-    };
-
-    try {
-      fetchData();
-    } catch (error) {
-      console.log(error);
-    }
     // eslint-disable-next-line
   }, [state]);
 
