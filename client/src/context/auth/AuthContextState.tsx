@@ -52,6 +52,7 @@ const AuthContextState: React.FC = props => {
   loadUserData();
 
   const initialState: Auth = {
+    user: null,
     authenticated: false,
     loading: false,
     errors: false,
@@ -64,6 +65,7 @@ const AuthContextState: React.FC = props => {
   return (
     <AuthContext.Provider
       value={{
+        user: state.user,
         authenticated: state.authenticated,
         loading: state.loading,
         errors: state.errors,
