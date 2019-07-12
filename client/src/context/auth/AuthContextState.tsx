@@ -54,8 +54,8 @@ const AuthContextState: React.FC = props => {
 
   const initialState: Auth = {
     authenticated: false,
-    Loading: false,
-    Errors: false,
+    loading: false,
+    errors: false,
     loadUser: loginUser,
     loadUserData: loadUserData
   };
@@ -66,8 +66,8 @@ const AuthContextState: React.FC = props => {
     <AuthContext.Provider
       value={{
         authenticated: state.authenticated,
-        Loading: state.Loading,
-        Errors: state.Errors,
+        loading: state.loading,
+        errors: state.errors,
         loadUser: state.loadUser,
         loadUserData: state.loadUserData
       }}
