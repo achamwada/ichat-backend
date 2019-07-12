@@ -1,12 +1,11 @@
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import { RouteComponentProps } from 'react-router-dom';
 import LoginForm from '../components/forms/LoginForm';
 
-const useStyles = makeStyles((theme: Theme) =>
+/*const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
       display: 'flex',
@@ -18,14 +17,14 @@ const useStyles = makeStyles((theme: Theme) =>
       padding: theme.spacing(2)
     }
   })
-);
+);*/
 
-interface Respon {
+/*interface Respon {
   token: string | null;
-}
+}*/
 //interface
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const classes = useStyles();
+  //const classes = useStyles();
   //const { authenticated } = useContext(AuthContext);
 
   const [state, setstate] = useState({
@@ -54,6 +53,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     } catch (error) {
       console.log(error);
     }
+    // eslint-disable-next-line
   }, [state]);
 
   return (

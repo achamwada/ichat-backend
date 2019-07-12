@@ -13,8 +13,6 @@ import { AuthContext } from './AuthContext';
 import { myReducer } from './AuthContextReducer';
 
 const AuthContextState: React.FC = props => {
-  const token: string | null = getRequestToken();
-
   const loginUser = async (formData: LoginUser) => {
     try {
       const response = await axios.post('/api/auth', {

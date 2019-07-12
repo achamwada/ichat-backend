@@ -1,14 +1,11 @@
-import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import { Paper, Typography } from '@material-ui/core';
+import Avatar from '@material-ui/core/Avatar';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
-import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
-import Checkbox from '@material-ui/core/Checkbox';
-import Avatar from '@material-ui/core/Avatar';
-import { Paper, Typography, Divider } from '@material-ui/core';
-import { ThemeProvider } from '@material-ui/styles';
+import ListItemText from '@material-ui/core/ListItemText';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import React from 'react';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,9 +23,9 @@ const useStyles = makeStyles((theme: Theme) =>
 
 const Contacts: React.FC = props => {
   const classes = useStyles({});
-  const [checked, setChecked] = React.useState([1]);
+  //const [checked, setChecked] = React.useState([1]);
 
-  const handleToggle = (value: number) => () => {
+  /*const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value);
     const newChecked = [...checked];
 
@@ -39,7 +36,7 @@ const Contacts: React.FC = props => {
     }
 
     setChecked(newChecked);
-  };
+  };*/
 
   return (
     <Paper className={classes.root}>
