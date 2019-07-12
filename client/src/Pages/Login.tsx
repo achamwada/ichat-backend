@@ -8,6 +8,7 @@ import { Redirect } from 'react-router-dom';
 import { useApi } from '../hooks/useApi';
 import { Request, SignIn, User } from '../models/';
 import axios from 'axios';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -27,19 +28,9 @@ interface Respon {
   token: string | null;
 }
 //interface
-const Login = () => {
+const Login: React.FC<RouteComponentProps> = ({ history }) => {
   const classes = useStyles();
   //const { authenticated } = useContext(AuthContext);
-  // console.log('match', match); ,
-  //{ token: string }
-  const req: Request<SignIn> = {
-    url: '',
-    method: 'POST',
-    payload: {
-      email_address: '',
-      password: ''
-    }
-  };
 
   const [state, setstate] = useState({
     email_address: '',
@@ -59,7 +50,7 @@ const Login = () => {
       } = await response.data;
       const { token } = data;
       localStorage.setItem('auth-token', token);
-      return <Redirect to="/" />;
+      history.push('/');
     };
 
     try {

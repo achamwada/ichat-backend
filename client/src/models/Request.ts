@@ -51,14 +51,24 @@ export interface User {
 }
 
 export interface Auth {
-  token: string | null;
   authenticated: boolean;
-  data: User | null;
-  isLoading?: Loading | boolean;
-  isError?: Array<ResponseError> | boolean;
+  Loading?: Loading | boolean;
+  Errors?: Array<ResponseError> | boolean;
+  loadUser: Function | null,
+  loadUserData: Function | null
 }
 
 export interface AuthStatusPayload {
-  token: string | null,
+  token?: string | null,
   data?: User | null
+}
+
+export interface LoginUser{
+  email_address: string;
+  password: string;
+}
+
+export interface UserAuthenticated {
+  token: string;
+  authenticated: boolean;
 }

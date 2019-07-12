@@ -18,7 +18,7 @@ const checkStatus = (initialState: Auth, payload: AuthStatusPayload) => {
 
 }
 
-export const myReducer = (initStateData: Auth, action: Action<AuthStatusPayload>) => {
+export const myReducer = <T>(initStateData: Auth, action: Action<T>) => {
 
   switch (action.type) {
 

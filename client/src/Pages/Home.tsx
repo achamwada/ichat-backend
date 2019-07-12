@@ -8,8 +8,9 @@ import Divider from '@material-ui/core/Divider';
 import UserStatus from '../components/chats/UserStatus';
 import Hidden from '@material-ui/core/Hidden';
 import Contacts from '../components/chats/Contacts';
+import { withRouter, RouteComponentProps } from 'react-router-dom';
 
-const Home = () => {
+const Home: React.FC<RouteComponentProps> = ({ history }) => {
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({
       root: {
@@ -20,6 +21,8 @@ const Home = () => {
   );
 
   const [chatsList, setChatList] = useState([1, 2, 3]);
+  console.log('history', history);
+  //history.push('/login');
 
   const classes = useStyles();
   return (
@@ -65,4 +68,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default withRouter(Home);

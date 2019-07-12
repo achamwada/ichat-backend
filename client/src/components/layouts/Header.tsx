@@ -1,4 +1,7 @@
 import React, { useContext } from 'react';
+import { RouteComponentProps } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
 import { AuthContext } from '../../context/auth/AuthContext';
 import {
   fade,
@@ -21,6 +24,8 @@ import MailIcon from '@material-ui/icons/Mail';
 import NotificationsIcon from '@material-ui/icons/Notifications';
 import MoreIcon from '@material-ui/icons/MoreVert';
 import { Redirect } from 'react-router-dom';
+
+interface ChildComponentProps extends RouteComponentProps<any> {}
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -87,8 +92,9 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const Header: React.FC = props => {
+const Header: React.SFC<ChildComponentProps> = ({ history }) => {
   const classes = useStyles();
+  console.log('history', history);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [
     mobileMoreAnchorEl,
@@ -174,10 +180,12 @@ const Header: React.FC = props => {
 
   return (
     <AuthContext.Consumer>
-      {({ token, authenticated, data }) => {
-        console.log({ token, authenticated, data });
+      {({ authenticated }) => {
+        console.log({ authenticated });
         if (!authenticated) {
-          return null; //<Redirect to="/login" push />;
+          //history.push('/login');
+          return null;
+          // <Redirect to="/login" push />;
         } else {
           return (
             <div className={classes.grow}>
@@ -256,4 +264,4 @@ const Header: React.FC = props => {
   );
 };
 
-export default Header;
+export default withRouter(Header);

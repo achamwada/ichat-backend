@@ -25,7 +25,7 @@ const Footer: React.FC = props => {
 
   return (
     <AuthContext.Consumer>
-      {({ token, authenticated, data }) => {
+      {({ authenticated }) => {
         if (!authenticated) {
           return null;
         } else {
