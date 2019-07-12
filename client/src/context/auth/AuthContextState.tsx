@@ -1,17 +1,16 @@
-import React, { useReducer, useEffect } from 'react';
-import { AuthContext } from './AuthContext';
-import { myReducer } from './AuthContextReducer';
+import axios from 'axios';
+import React, { useReducer } from 'react';
 import {
-  Request,
-  User,
+  Action,
   ActionTypes,
+  Auth,
   LoginUser,
+  User,
   UserAuthenticated
 } from '../../models';
-import { useApi } from '../../hooks/useApi';
-import { Auth, Action } from '../../models';
 import { getRequestToken, setRequestToken } from '../auth/functions';
-import axios from 'axios';
+import { AuthContext } from './AuthContext';
+import { myReducer } from './AuthContextReducer';
 
 const AuthContextState: React.FC = props => {
   const token: string | null = getRequestToken();
