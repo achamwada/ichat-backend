@@ -62,7 +62,20 @@ router.post(
  * Get  /api/friend
  * Protected route: lists logged in user friends
  */
-router.get("/", auth, async (req, res) => {});
+router.get("/", auth, async (req, res) => {
+
+  try {
+    const friendsList = await Friend.find().where({relating_user: req.body.user.user_id});
+    res.status(200).json(friendsList);
+    
+  } catch (error) {
+    res.status(500).json({"msg": error});
+    
+  }
+  
+
+
+});
 
 /**
  * PUT  /api/friend
