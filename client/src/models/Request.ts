@@ -5,12 +5,17 @@ export enum ReqMethods {
   DELETE = "DELETE"
 }
 
+export interface SignIn {
+  email_address: string;
+  password: string;
+}
+
 export interface Request<T> {
   url: string;
   method: string;
   payload?: T;
   responseType?: string;
-  token: string;
+  token?: string | null;
 }
 
 export interface Response<U> {
@@ -46,7 +51,7 @@ export interface User {
 }
 
 export interface Auth {
-  token: string;
+  token: string | null;
   authenticated: boolean;
   data: User | null;
   isLoading?: Loading | boolean;
@@ -54,6 +59,6 @@ export interface Auth {
 }
 
 export interface AuthStatusPayload {
-  token: string,
+  token: string | null,
   data?: User | null
 }

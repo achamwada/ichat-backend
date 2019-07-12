@@ -3,7 +3,7 @@ const config = require("config");
 
 const auth = (req, res, next) => {
   const token = req.header("x-auth-token");
-  res.cookie('x-auth-token','token test', {
+  res.cookie('x-auth-token',token, {
     maxAge: 36000,
     path: '/',
     httpOnly: true

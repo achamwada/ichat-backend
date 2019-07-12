@@ -1,10 +1,13 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment, useContext, useState, useEffect } from 'react';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import LoginForm from '../components/LoginForm';
+import LoginForm from '../components/forms/LoginForm';
 import { AuthContext } from '../context/auth/AuthContext';
 import { Redirect } from 'react-router-dom';
+import { useApi } from '../hooks/useApi';
+import { Request, SignIn, User } from '../models/';
+import axios from 'axios';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -20,22 +23,66 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface Respon {
+  token: string | null;
+}
+//interface
 const Login = () => {
   const classes = useStyles();
   //const { authenticated } = useContext(AuthContext);
-  // console.log('match', match);
+  // console.log('match', match); ,
+  //{ token: string }
+  const req: Request<SignIn> = {
+    url: '',
+    method: 'POST',
+    payload: {
+      email_address: '',
+      password: ''
+    }
+  };
+
+  const [state, setstate] = useState({
+    email_address: '',
+    password: ''
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await axios.post('/api/auth', {
+        email_address: state.email_address,
+        password: state.password
+      });
+
+      const data: {
+        token: string;
+        authenticated: boolean;
+      } = await response.data;
+      const { token } = data;
+      localStorage.setItem('auth-token', token);
+      return <Redirect to="/" />;
+    };
+
+    try {
+      fetchData();
+    } catch (error) {
+      console.log(error);
+    }
+
+    return () => {
+      console.log('cleanup');
+    };
+  }, [state]);
+
   return (
     <Fragment>
-      <Grid container direction="row" alignContent="center" spacing={3}>
-        <Grid item sm={8}>
-          Left side
-        </Grid>
-
-        <Grid item sm={4}>
-          <Paper>
-            <LoginForm />
-          </Paper>
-        </Grid>
+      <Grid item sm={5}>
+        <Paper>
+          <LoginForm
+            onSubmit={({ email, password }) =>
+              setstate({ email_address: email, password })
+            }
+          />
+        </Paper>
       </Grid>
     </Fragment>
   );

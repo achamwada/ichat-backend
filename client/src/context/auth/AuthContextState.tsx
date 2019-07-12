@@ -4,10 +4,11 @@ import { myReducer } from './AuthContextReducer';
 import { Request, User, ActionTypes } from '../../models';
 import { useApi } from '../../hooks/useApi';
 import { Auth, Action, AuthStatusPayload } from '../../models';
+import { getRequestToken } from '../auth/functions';
 
 const AuthContextState: React.FC = props => {
-  const token: string =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNWQxMTJmOTdhZTQzNmMwN2E3ZDk3NmFlIiwiaWF0IjoxNTYyODc3NzQ3LCJleHAiOjE1NjI5MTM3NDd9.HQuRbHgbAY-I6RfMUW_aO7t90-V7MVwpKn_PLowfPI0';
+  const token: string | null = getRequestToken(); //JSON.stringify(getCookie('x-auth-token'));
+  console.log('this token is', token);
 
   const { results, isLoading, isError } = useApi<Request<null>, { user: User }>(
     {

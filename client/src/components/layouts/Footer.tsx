@@ -5,6 +5,7 @@ import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import { Grid } from '@material-ui/core';
 import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -29,10 +30,11 @@ const Footer: React.FC = props => {
           return null;
         } else {
           return (
-            <Grid container direction="column" className={classes.container}>
-              <Grid item sm={12}>
-                <Paper square style={{ width: '100%' }}>
+            <Grid container direction="row" className={classes.container}>
+              <Grid item xs={12}>
+                <Paper square>
                   <Tabs
+                    centered
                     value={value}
                     indicatorColor="primary"
                     textColor="primary"

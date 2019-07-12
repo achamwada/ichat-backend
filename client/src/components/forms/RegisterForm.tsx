@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-const LoginForm = () => {
+const RegisterForm = () => {
   const classes = useStyles();
   return (
     <React.Fragment>
@@ -53,4 +53,5 @@ const LoginForm = () => {
     </React.Fragment>
   );
 };
-export default LoginForm;
+
+export default RegisterForm;
