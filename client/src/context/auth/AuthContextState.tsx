@@ -48,7 +48,7 @@ const AuthContextState: React.FC = props => {
   };
 
   const initialState: Auth = {
-    user: { email_address: 'test', user_name: 'a' },
+    user: { email_address: '', user_name: '' },
     authenticated: false,
     loading: false,
     errors: false,

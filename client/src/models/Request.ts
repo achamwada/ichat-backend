@@ -38,8 +38,8 @@ export interface Action<T> {
 }
 
 export interface User {
-  user_name: string;
-  email_address: string;
+  user_name?: string;
+  email_address?: string;
   firstName?: string;
   lastName?: string;
   age?: number;

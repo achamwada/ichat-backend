@@ -1,4 +1,4 @@
-import { Auth, Action, ActionTypes, AuthStatusPayload } from "../../models";
+import { Action, ActionTypes, Auth, AuthStatusPayload, User } from "../../models";
 
 const checkStatus = (initialState: Auth, payload: AuthStatusPayload) => {
 
@@ -18,6 +18,18 @@ const checkStatus = (initialState: Auth, payload: AuthStatusPayload) => {
 
 }
 
+const loadUserData = (initialState: Auth, payload: User) =>{
+
+  return {
+    ...initialState,
+    user: payload,
+    authenticated: true,
+    loading: false,
+    errors: false
+  };
+
+}
+
 export const myReducer = <T>(initStateData: Auth, action: Action<T>) => {
 
   switch (action.type) {
@@ -26,13 +38,7 @@ export const myReducer = <T>(initStateData: Auth, action: Action<T>) => {
       return checkStatus(initStateData, action.payload);
     
       case ActionTypes.LOAD_USER_DATA:
-          return {
-            ...initStateData,
-            //user: action.payload,
-            authenticated: true,
-            loading: false,
-            errors: false
-          };
+          return loadUserData(initStateData, action.payload);
 
     default:
       return initStateData;
