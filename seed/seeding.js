@@ -4,7 +4,7 @@ const fs = require('fs');
 
 // Uncomment to generate User seeds
 var Base_User = {
-  _id: '5d290cd064803d0d7ce61a48',
+  //_id: '5d290cd064803d0d7ce61a48',
   user_name: faker.name.firstName(),
   email_address: 'alexchams@gmail.com',
   date_added: '2019-06-24T20:16:23.642Z',
@@ -27,7 +27,7 @@ for (var i = 1; i < 30; i++) {
     .replace('-', '')
     .substring(0, 8);
   var user = {
-    _id: id,
+    //_id: id,
     user_name: faker.name.firstName(),
     email_address: faker.internet.email(),
     date_added: '2019-06-24T20:16:23.642Z',
@@ -59,10 +59,10 @@ const friends = [];
 for (var i = 1; i < 11; i++) {
   var related_user_id = user_ids[i];
   var friend = {
-    _id: i,
+    //_id: i,
     relationship: 'acquaintance',
-    relating_user: '5d290cd064803d0d7ce61a48',
-    related_user: related_user_id,
+    //relating_user: '5d290cd064803d0d7ce61a48',
+    //related_user: related_user_id,
     acceptance: true,
     date_added: '2019-06-24T20:16:23.642Z',
     __v: 0
@@ -116,13 +116,13 @@ const comments = [];
 
 for (let i = 1; i < comments_ids.length; i++) {
   let new_comment_comments = {
-    _id:
-      comments_ids[i][
-        faker.random.number({
-          min: 0,
-          max: comments_ids[i].length - 1
-        })
-      ],
+    // _id:
+    //   comments_ids[i][
+    //     faker.random.number({
+    //       min: 0,
+    //       max: comments_ids[i].length - 1
+    //     })
+    //   ],
     message: faker.lorem.sentences(),
     date_added: faker.date.past(2019),
     userID: user_ids[faker.random.number({ min: 0, max: user_ids.length - 1 })],

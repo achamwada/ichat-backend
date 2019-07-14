@@ -75,7 +75,8 @@ router.get("/", auth, async (req, res) => {
   try {
     userId = req.body.user.user_id;//"2e18b3e7";//'5d290cd064803d0d7ce61a48';
     console.log('req.body.user.user_id is ', req.body.user.user_id)
-    const friendsList = await Friend.find({relating_user: userId});//.populate('friend')
+    let friendsList = await Friend.find({relating_user: userId}).select('relationship relating_user').populate('related_user');
+
     res.status(200).json(friendsList);
   } catch (error) {
     res.status(500).json({"msg": error});
