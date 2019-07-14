@@ -41,7 +41,8 @@ const FriendContextState: React.FC = props => {
     relationship: '',
     acceptance: false,
     date_added: Date.now(),
-    addFriend
+    addFriend,
+    getAllFriends
   };
 
   const [friendState, dispatch] = useReducer(friendReducer, initialState);
@@ -54,7 +55,8 @@ const FriendContextState: React.FC = props => {
         relationship: friendState.relationship,
         acceptance: friendState.acceptance,
         date_added: friendState.date_added,
-        addFriend: friendState.addFriend
+        addFriend: friendState.addFriend,
+        getAllFriends: friendState.getAllFriends
       }}
     >
       {props.children}

@@ -86,6 +86,7 @@ export interface FriendStructure {
   acceptance: boolean;
   date_added: number;
   addFriend: Function;
+  getAllFriends: Function;
 }
 
 

@@ -6,7 +6,9 @@ const FriendContext = createContext<Partial<FriendStructure>>({
   related_user: [],
   relationship: '',
   acceptance: false,
-  date_added: Date.now()
+  date_added: Date.now(),
+  addFriend: (): void => {},
+  getAllFriends: (): void => {}
 });
 
 export default FriendContext;
