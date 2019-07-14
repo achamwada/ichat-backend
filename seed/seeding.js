@@ -63,6 +63,7 @@ for (var i = 1; i < 11; i++) {
     relationship: 'acquaintance',
     relating_user: '5d290cd064803d0d7ce61a48',
     related_user: related_user_id,
+    acceptance: true,
     date_added: '2019-06-24T20:16:23.642Z',
     __v: 0
   };

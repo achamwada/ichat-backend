@@ -3,7 +3,7 @@ const schema = mongoose.Schema;
 
 const friendSchema = schema({
     relating_user: [{
-        type: schema.Types.ObjectId,
+        type: String,//schema.Types.ObjectId,
         ref: 'user'
 
     }],
