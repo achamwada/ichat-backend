@@ -18,8 +18,8 @@ var Base_User = {
   password: '$2a$10$PYekEA65UwEzsrEJED3iq.5alSUbwsOMaaE3cvji3DkIbOG/2Iupe'
 };
 
-const users = [];
-const user_ids = [Base_User];
+const users = [Base_User];
+const user_ids = [];
 
 for (var i = 1; i < 30; i++) {
   var id = faker.random
