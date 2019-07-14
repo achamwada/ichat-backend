@@ -34,18 +34,15 @@ export interface Loading {
 
 export interface Action<T> {
   type: string;
-  payload: T;
+  payload: T; // | Array<T>;
 }
 
 export interface User {
   user_name?: string;
   email_address?: string;
-  // firstName?: string;
-  // lastName?: string;
   age?: number;
   country?: string;
   city?: string;
-  //phoneNumber?: string;
   __v?: number;
   _id?: string;
   password?: string;
