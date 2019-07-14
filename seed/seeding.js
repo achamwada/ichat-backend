@@ -6,12 +6,15 @@ const fs = require('fs');
 const users = [];
 
 for (var i = 0; i < 20; i++) {
-    var id = faker.random.uuid().replace('-', '').substring(0, 8);
-    var user = {
-      _id: id,
+  var id = faker.random
+    .uuid()
+    .replace('-', '')
+    .substring(0, 8);
+  var user = {
+    _id: id,
     user_name: faker.name.firstName(),
     email_address: faker.internet.email(),
-    date_added: "2019-06-24T20:16:23.642Z",
+    date_added: '2019-06-24T20:16:23.642Z',
     avatar: faker.image.avatar(),
     first_name: faker.name.firstName(),
     last_name: faker.name.lastName(),
@@ -19,23 +22,19 @@ for (var i = 0; i < 20; i++) {
     skills: faker.name.jobDescriptor(),
     bio: faker.lorem.sentence(30),
     __v: 0,
-    password: "$2a$10$PYekEA65UwEzsrEJED3iq.5alSUbwsOMaaE3cvji3DkIbOG/2Iupe"
-  }
+    password: '$2a$10$PYekEA65UwEzsrEJED3iq.5alSUbwsOMaaE3cvji3DkIbOG/2Iupe'
+  };
 
-  users.push(user)
-
-
+  users.push(user);
 }
 
 fs.writeFile('users.json', JSON.stringify(users), 'utf8', function(err) {
-    if(err) {
-        return console.log(err);
-    }
+  if (err) {
+    return console.log(err);
+  }
 
-    console.log("The file was saved!");
+  console.log('-> users.json was saved!');
 });
-
-
 
 // Uncomment to generate Friends to a given user
 const user_ids = [
@@ -74,28 +73,30 @@ fs.writeFile('friends.json', JSON.stringify(friends), 'utf8', function(err) {
     return console.log(err);
   }
 
-  console.log('The file was saved!');
+  console.log('-> friends.json was saved!');
 });
-
 
 // Generate seeds for Statuses
 const Status = [];
-
+const comments_ids = [];
 for (let i = 0; i < 20; i++) {
+  let status_comment_ids = [
+    faker.random.number({ min: 1000, max: 10000 }),
+    faker.random.number({ min: 1000, max: 10000 }),
+    faker.random.number({ min: 1000, max: 10000 })
+  ];
+
   let new_comment = {
     userID: faker.random.number(20),
     status: faker.lorem.sentences(),
     date_created: faker.date.past(2019),
     likes: faker.random.number(70),
-    views: faker.random.number({min: 70}),
-    comments: [
-      faker.random.number({min: 1000, max: 10000}),
-      faker.random.number({min: 1000, max: 10000}),
-      faker.random.number({min: 1000, max: 10000})
-    ]
+    views: faker.random.number({ min: 70 }),
+    comments: status_comment_ids
   };
 
   Status.push(new_comment);
+  comments_ids.push(status_comment_ids);
 }
 
 const statusData = JSON.stringify(Status);
@@ -104,44 +105,127 @@ fs.writeFile('Status.json', statusData, err => {
   if (err) {
     console.log(err);
   } else {
-    console.log('Done Statuses file!');
+    console.log('-> Statuses.json was saved!');
   }
 });
 
-
-
-
-const commentStruct = {
-  userID: {
-    type: schema.Types.ObjectId,
-    ref: 'user'
-  },
-  message: String,
-  date_added: {
-    default: Date.now()
-  },
-  inner_comments: [
-    {
-      type: schema.Types.ObjectId,
-      ref: 'status'
-    }
-  ]
-};
-
-
 const comments = [];
 
-for(let i = 0; i<20; i++){
+for (let i = 0; i < 20; i++) {
   let new_comment = {
-    userID: faker.random.number(20),
+    _id:
+      comments_ids[i][
+        faker.random.number({ min: 0, max: comments_ids[i].length })
+      ],
+    userID: user_ids[i],
     message: faker.lorem.sentences(),
     date_added: faker.random.d,
     inner_comments: [
       {
-        type: schema.Types.ObjectId,
-        ref: 'status'
+        userID: faker.random.number(20),
+        message: faker.lorem.sentences(),
+        date_added: Date.now(),
+        inner_comments: [
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          },
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          },
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          }
+        ]
+      },
+      {
+        userID: faker.random.number(20),
+        message: faker.lorem.sentences(),
+        date_added: Date.now(),
+        inner_comments: [
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          },
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          }
+        ]
+      },
+      {
+        userID: faker.random.number(20),
+        message: faker.lorem.sentences(),
+        date_added: Date.now(),
+        inner_comments: [
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          },
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          },
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          }
+        ]
+      },
+      {
+        userID: faker.random.number(20),
+        message: faker.lorem.sentences(),
+        date_added: Date.now(),
+        inner_comments: [
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          },
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          },
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          }
+        ]
+      },
+      {
+        userID: faker.random.number(20),
+        message: faker.lorem.sentences(),
+        date_added: Date.now(),
+        inner_comments: [
+          {
+            userID: faker.random.number(20),
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          }
+        ]
       }
     ]
   };
 
+  comments.push(new_comment);
 }
+
+fs.writeFile('Comments.json', JSON.stringify(comments), err => {
+  if (err) {
+    return console.log(err);
+  }
+
+  console.log('-> Comments.json was saved!');
+});

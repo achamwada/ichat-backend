@@ -39,7 +39,6 @@ const Status = new schema({
   ]
 });
 
-
 // Creating models from defined schemas
 CommentModel = mongoose.model('comment', Comment);
 StatusModel = mongoose.model('status', Status);
