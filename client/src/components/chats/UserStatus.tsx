@@ -82,14 +82,17 @@ const UserStatus: React.FC = props => {
             value={message}
             label="Message..."
             fullWidth
+            onChange={(evt: React.ChangeEvent<HTMLInputElement>) =>
+              handleChange(evt)
+            }
           />
         </DialogContent>
         <DialogActions>
           <Button variant="contained" color="primary" onClick={handleClose}>
-            Primary
+            Send
           </Button>
           <Button variant="contained" color="secondary" onClick={handleClose}>
-            Secondary
+            Cancel
           </Button>
         </DialogActions>
       </Dialog>
