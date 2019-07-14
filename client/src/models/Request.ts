@@ -40,14 +40,22 @@ export interface Action<T> {
 export interface User {
   user_name?: string;
   email_address?: string;
-  firstName?: string;
-  lastName?: string;
+  // firstName?: string;
+  // lastName?: string;
   age?: number;
   country?: string;
   city?: string;
-  phoneNumber?: string;
+  //phoneNumber?: string;
   __v?: number;
   _id?: string;
+  password?: string;
+  first_name?: string;
+  last_name?: string;
+  phone_number?: string;
+  avatar?: string;
+  skills?: string;
+  bio?: string;
+  date_added?: Date;
 }
 
 export interface Auth {
@@ -72,4 +80,21 @@ export interface LoginUser{
 export interface UserAuthenticated {
   token: string;
   authenticated: boolean;
+}
+
+export interface FriendStructure {
+  relating_user: string;
+  related_user: Array<User> | null;
+  relationship: string;
+  acceptance: boolean;
+  date_added: number;
+  addFriend: Function;
+}
+
+
+export enum relationship {
+  acquaintance = 'acquaintance',
+  close = 'close',
+  professional = 'professional',
+  none = ''
 }
