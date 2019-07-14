@@ -6,8 +6,6 @@ import axios from 'axios';
 
 const FriendContextState: React.FC = props => {
   const addFriend = async (friendEmailAddress: string) => {
-    // TODO: Add user to the database
-
     try {
       const friending = await axios.post('/api/friend', {
         email_address: friendEmailAddress
@@ -18,6 +16,20 @@ const FriendContextState: React.FC = props => {
       let action: Action<string> = {
         type: ActionTypes.ACCEPT_FRIEND_REQUEST,
         payload: requested_friend_id
+      };
+      dispatch(action);
+    } catch (error) {}
+  };
+
+  const getAllFriends = async () => {
+    try {
+      const friendlistRequest = await axios.get('/api/friend');
+      const friendlistArray: Array<
+        FriendStructure
+      > = await friendlistRequest.data;
+      let action: Action<Array<FriendStructure>> = {
+        type: ActionTypes.LIST_FRIENDS,
+        payload: friendlistArray
       };
       dispatch(action);
     } catch (error) {}

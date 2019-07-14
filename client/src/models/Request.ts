@@ -34,7 +34,7 @@ export interface Loading {
 
 export interface Action<T> {
   type: string;
-  payload: T; // | Array<T>;
+  payload: T ;
 }
 
 export interface User {
