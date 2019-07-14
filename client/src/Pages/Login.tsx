@@ -40,7 +40,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
   return (
     <Fragment>
-      <Grid item sm={5}>
+      <Grid item sm={3}>
         <Paper>
           <LoginForm
             onSubmit={({ email, password }) =>

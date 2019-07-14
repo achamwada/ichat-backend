@@ -2,11 +2,11 @@ const mongoose = require('mongoose');
 const schema = mongoose.Schema;
 
 const friendSchema = schema({
-    relating_user: {
+    relating_user: [{
         type: schema.Types.ObjectId,
         ref: 'user'
 
-    },
+    }],
     related_user: {
         type: schema.Types.ObjectId,
         ref: 'user'

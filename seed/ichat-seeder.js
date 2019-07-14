@@ -5,7 +5,7 @@ const User = require("../models/User");
 //const dbURI = config.get("mongoDBURI");
 mongoose.set("useCreateIndex", true);
 mongoose.connect(
-  "mongodb+srv://chatUser:2MC4WgPKFLw5squw@cluster0-ol4ro.mongodb.net/test?retryWrites=true&w=majority",
+  "mongodb://localhost:27017/ichat",
   { useNewUrlParser: true }
 );
 

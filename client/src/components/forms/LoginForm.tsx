@@ -36,7 +36,7 @@ const LoginForm: React.FC<Props> = ({ onSubmit }) => {
               component={GenericTextField}
             />
 
-            <pre>{JSON.stringify(values, null, 2)}</pre>
+            {/* <pre>{JSON.stringify(values, null, 2)}</pre> */}
           </FormControl>
           <div style={{ textAlign: 'center' }}>
             <Button

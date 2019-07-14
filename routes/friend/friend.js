@@ -64,15 +64,21 @@ router.post(
  */
 router.get("/", auth, async (req, res) => {
 
-  try {
-    const friendsList = await Friend.find().where({relating_user: req.body.user.user_id});
-    res.status(200).json(friendsList);
+  // try {
+  //   const friendsList = await Friend.find().where({relating_user: req.body.user.user_id});
+  //   res.status(200).json(friendsList);
     
+  // } catch (error) {
+  //   res.status(500).json({"msg": error});
+    
+  // }
+  try {
+    const friendsList = await User.findById(req.body.user.user_id).populate('friend')
+    res.status(200).json(friendsList);
   } catch (error) {
     res.status(500).json({"msg": error});
     
   }
-  
 
 
 });
