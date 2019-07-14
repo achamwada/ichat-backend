@@ -3,9 +3,25 @@ const faker = require('faker');
 const fs = require('fs');
 
 // Uncomment to generate User seeds
-const users = [];
+var Base_User = {
+  _id: '5d290cd064803d0d7ce61a48',
+  user_name: faker.name.firstName(),
+  email_address: 'alexchams@gmail.com',
+  date_added: '2019-06-24T20:16:23.642Z',
+  avatar: faker.image.avatar(),
+  first_name: faker.name.firstName(),
+  last_name: faker.name.lastName(),
+  phone_number: faker.phone.phoneNumber(),
+  skills: faker.name.jobDescriptor(),
+  bio: faker.lorem.sentence(30),
+  __v: 0,
+  password: '$2a$10$PYekEA65UwEzsrEJED3iq.5alSUbwsOMaaE3cvji3DkIbOG/2Iupe'
+};
 
-for (var i = 0; i < 20; i++) {
+const users = [];
+const user_ids = [Base_User];
+
+for (var i = 1; i < 30; i++) {
   var id = faker.random
     .uuid()
     .replace('-', '')
@@ -22,10 +38,11 @@ for (var i = 0; i < 20; i++) {
     skills: faker.name.jobDescriptor(),
     bio: faker.lorem.sentence(30),
     __v: 0,
-    password: '$2a$10$PYekEA65UwEzsrEJED3iq.5alSUbwsOMaaE3cvji3DkIbOG/2Iupe'
+    password: faker.internet.password(30)
   };
 
   users.push(user);
+  user_ids.push(id);
 }
 
 fs.writeFile('users.json', JSON.stringify(users), 'utf8', function(err) {
@@ -37,30 +54,15 @@ fs.writeFile('users.json', JSON.stringify(users), 'utf8', function(err) {
 });
 
 // Uncomment to generate Friends to a given user
-const user_ids = [
-  '1cd658dd',
-  '62a5764d',
-  '3a7c1d62',
-  'cb39816c',
-  '00756f20',
-  'ae445b92',
-  '769b4165',
-  'e546c4a3',
-  '746297aa',
-  '47c0e079',
-  '951cc10f',
-  'c2037c0b',
-  'de3772fd'
-];
 const friends = [];
 
 for (var i = 1; i < 11; i++) {
-  var relating_user_id = user_ids[0];
+  var related_user_id = user_ids[i];
   var friend = {
     _id: i,
     relationship: 'acquaintance',
     relating_user: '5d290cd064803d0d7ce61a48',
-    related_user: relating_user_id,
+    related_user: related_user_id,
     date_added: '2019-06-24T20:16:23.642Z',
     __v: 0
   };
@@ -79,7 +81,7 @@ fs.writeFile('friends.json', JSON.stringify(friends), 'utf8', function(err) {
 // Generate seeds for Statuses
 const Status = [];
 const comments_ids = [];
-for (let i = 0; i < 20; i++) {
+for (let i = 1; i < 20; i++) {
   let status_comment_ids = [
     faker.random.number({ min: 1000, max: 10000 }),
     faker.random.number({ min: 1000, max: 10000 }),
@@ -87,9 +89,9 @@ for (let i = 0; i < 20; i++) {
   ];
 
   let new_comment = {
-    userID: faker.random.number(20),
+    userID: user_ids[faker.random.number({ min: 0, max: user_ids.length - 1 })],
     status: faker.lorem.sentences(),
-    date_created: faker.date.past(2019),
+    date_created: faker.date.past(2018),
     likes: faker.random.number(70),
     views: faker.random.number({ min: 70 }),
     comments: status_comment_ids
@@ -111,106 +113,142 @@ fs.writeFile('Status.json', statusData, err => {
 
 const comments = [];
 
-for (let i = 0; i < 20; i++) {
-  let new_comment = {
+for (let i = 1; i < comments_ids.length; i++) {
+  let new_comment_comments = {
     _id:
       comments_ids[i][
-        faker.random.number({ min: 0, max: comments_ids[i].length })
+        faker.random.number({
+          min: 0,
+          max: comments_ids[i].length - 1
+        })
       ],
-    userID: user_ids[i],
     message: faker.lorem.sentences(),
-    date_added: faker.random.d,
+    date_added: faker.date.past(2019),
+    userID: user_ids[faker.random.number({ min: 0, max: user_ids.length - 1 })],
     inner_comments: [
       {
-        userID: faker.random.number(20),
+        userID:
+          user_ids[faker.random.number({ min: 0, max: user_ids.length - 1 })],
         message: faker.lorem.sentences(),
         date_added: Date.now(),
         inner_comments: [
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           },
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           },
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           }
         ]
       },
       {
-        userID: faker.random.number(20),
+        userID:
+          user_ids[faker.random.number({ min: 0, max: user_ids.length - 1 })],
         message: faker.lorem.sentences(),
         date_added: Date.now(),
         inner_comments: [
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           },
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
+            message: faker.lorem.sentences(),
+            date_added: Date.now()
+          },
+          {
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           }
         ]
       },
       {
-        userID: faker.random.number(20),
+        userID:
+          user_ids[faker.random.number({ min: 0, max: user_ids.length - 1 })],
         message: faker.lorem.sentences(),
         date_added: Date.now(),
         inner_comments: [
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           },
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           },
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           }
         ]
       },
       {
-        userID: faker.random.number(20),
+        userID:
+          user_ids[faker.random.number({ min: 0, max: user_ids.length - 1 })],
         message: faker.lorem.sentences(),
         date_added: Date.now(),
         inner_comments: [
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           },
           {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           },
           {
-            userID: faker.random.number(20),
-            message: faker.lorem.sentences(),
-            date_added: Date.now()
-          }
-        ]
-      },
-      {
-        userID: faker.random.number(20),
-        message: faker.lorem.sentences(),
-        date_added: Date.now(),
-        inner_comments: [
-          {
-            userID: faker.random.number(20),
+            userID:
+              user_ids[
+                faker.random.number({ min: 0, max: user_ids.length - 1 })
+              ],
             message: faker.lorem.sentences(),
             date_added: Date.now()
           }
@@ -219,8 +257,9 @@ for (let i = 0; i < 20; i++) {
     ]
   };
 
-  comments.push(new_comment);
+  comments.push(new_comment_comments);
 }
+// console.log(comments);
 
 fs.writeFile('Comments.json', JSON.stringify(comments), err => {
   if (err) {
