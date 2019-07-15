@@ -11,7 +11,7 @@ const friendReducer = <T>(initialState: FriendStructure, action: Action<Array<T>
     switch(action.type){
         case ActionTypes.LIST_FRIENDS:{
             //return  listAllFriends(initialState, action.payload);
-            return {...initialState, action.payload};
+            //return {...initialState, action.payload};
 
             return initialState;
         }
