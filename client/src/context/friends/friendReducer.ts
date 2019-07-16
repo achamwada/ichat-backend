@@ -1,16 +1,16 @@
-import { Action, User, FriendStructure, AuthStatusPayload , ActionTypes} from '../../models/';
+import { Action, User, FriendStructure, AuthStatusPayload, ActionTypes } from '../../models/';
 
 const listAllFriends = (initialState: FriendStructure, Friends: FriendStructure) => {
-        return {
-            ...initialState,
-            Friends
-        }
+    return {
+        ...initialState,
+        Friends
+    }
 }
 
-const friendReducer = <T>(initialState: FriendStructure, action: Action<Array<T> | T>) => {
-    switch(action.type){
-        case ActionTypes.LIST_FRIENDS:{
-            //return  listAllFriends(initialState, action.payload);
+const friendReducer = <T>(initialState: FriendStructure, action: Action<T>) => {
+    switch (action.type) {
+        case ActionTypes.LIST_FRIENDS: {
+            return listAllFriends(initialState, action.payload);
             //return {...initialState, action.payload};
 
             return initialState;
