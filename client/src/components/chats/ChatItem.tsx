@@ -51,9 +51,6 @@ const ChatItem: React.FC<{ status: Status }> = ({ children, status }) => {
   console.log('status.userID', status.userID);
 
   var d = new Date();
-  // d.toLocaleString();       // -> "2/1/2013 7:37:08 AM"
-  // d.toLocaleDateString();   // -> "2/1/2013"
-  // d.toLocaleTimeString()
 
   function handleExpandClick() {
     setExpanded(!expanded);

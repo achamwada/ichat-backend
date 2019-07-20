@@ -56,8 +56,17 @@ const AuthContextState: React.FC<RouteComponentProps> = props => {
     loginUser: loginUser,
     loadUserData: loadUserData
   };
+  console.log('initialState', initialState);
 
   const [state, dispatch] = useReducer(authContextReducer, initialState);
+
+  dataIn = {
+    type: ActionTypes.CHECK_AUTH,
+    payload: {
+      token,
+      data: resultsData
+    }
+  };
 
   useEffect(() => {
     loadUserData();
