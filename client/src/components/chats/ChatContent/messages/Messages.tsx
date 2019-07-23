@@ -1,4 +1,5 @@
 import React from 'react';
+//import Message from '../../../../models/message';
 import { default as ListItem } from '@material-ui/core/ListItem';
 import { default as ListItemText } from '@material-ui/core/ListItemText';
 import { default as Avatar } from '@material-ui/core/Avatar';

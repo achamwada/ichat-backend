@@ -56,24 +56,6 @@ const AuthContextState: React.FC<RouteComponentProps> = props => {
     loginUser: loginUser,
     loadUserData: loadUserData
   };
-  console.log('initialState', initialState);
-
-  const [state, dispatch] = useReducer(authContextReducer, initialState);
-
-      dispatch(LoadUserAction);
-    } catch (error) {
-      console.log('error2', error);
-    }
-  };
-
-  const initialState: Auth = {
-    user: { email_address: '', user_name: '' },
-    authenticated: false,
-    loading: false,
-    errors: false,
-    loginUser: loginUser,
-    loadUserData: loadUserData
-  };
 
   const [state, dispatch] = useReducer(authContextReducer, initialState);
 
