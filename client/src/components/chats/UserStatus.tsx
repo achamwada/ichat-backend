@@ -22,13 +22,6 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-/*interface State {
-  name: string;
-  age: string;
-  multiline: string;
-  currency: string;
-}*/
-
 const UserStatus: React.FC = props => {
   const classes = useStyles();
 
@@ -64,6 +57,7 @@ const UserStatus: React.FC = props => {
       </form>
 
       <Dialog
+        fullScreen
         open={open}
         onClose={handleClose}
         aria-labelledby="form-dialog-title"

@@ -23,21 +23,8 @@ const App: React.FC = () => {
         <FriendContextState>
           <StatusContextState>
             <ChatContextState>
-              {/* <Header /> */}
-              <Grid
-                container
-                direction="row"
-                justify="center"
-                alignItems="baseline"
-                style={
-                  {
-                    // padding: '5px',
-                    // //maxWidth: '80%',
-                    // margin: 'auto',
-                    // marginTop: '2em'
-                  }
-                }
-              >
+              <Header />
+              <Grid container direction="row">
                 <Switch>
                   <Route exact path="/" component={Home} />
                   <Route exact path="/chats" component={Chats} />
