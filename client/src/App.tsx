@@ -16,6 +16,7 @@ import UserProfile from './Pages/UserProfile';
 import FriendContextState from './context/friends/FriendContextState';
 import StatusContextState from './context/status/statusContextState';
 import ChatContextState from './context/chat/chatsContextState';
+import InBox from './Pages/InBox';
 const App: React.FC = () => {
   return (
     <Router>
@@ -27,6 +28,7 @@ const App: React.FC = () => {
               <Grid container direction="row">
                 <Switch>
                   <Route exact path="/" component={Home} />
+                  <Route exact path="/inbox" component={InBox} />
                   <Route exact path="/chats" component={Chats} />
                   <Route path="/profile/" component={Profile} />
                   <Route exact path="/about" component={About} />

@@ -26,14 +26,6 @@ const useStyles = makeStyles((theme: Theme) =>
       top: '5em',
       right: '10%',
       width: '20%'
-    },
-    search: {
-      padding: '2px 4px',
-      display: 'flex',
-      alignItems: 'center',
-      width: '20%',
-      right: '10%',
-      position: 'fixed'
     }
   })
 );

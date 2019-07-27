@@ -126,12 +126,48 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
+interface DrawerMenuItem {
+  menuText: string;
+  link: string;
+  icon: string;
+}
+
 interface ChildComponentProps extends RouteComponentProps<any> {}
 
 const Header: React.SFC<ChildComponentProps> = ({ history }) => {
+  const [page, setPage] = useState('iChat');
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
+
+  const drawerMenu: Array<DrawerMenuItem> = [
+    {
+      menuText: 'Home',
+      link: '/',
+      icon: ''
+    },
+    {
+      menuText: 'Profile',
+      link: '/profile',
+      icon: ''
+    },
+    {
+      menuText: 'Channels',
+      link: '/channels',
+      icon: ''
+    },
+
+    {
+      menuText: 'Inbox',
+      link: '/inbox',
+      icon: ''
+    },
+    {
+      menuText: 'Gallery',
+      link: '/gallery',
+      icon: ''
+    }
+  ];
 
   function handleDrawerOpen() {
     setOpen(true);
@@ -170,7 +206,7 @@ const Header: React.SFC<ChildComponentProps> = ({ history }) => {
                     <MenuIcon />
                   </IconButton>
                   <Typography variant="h6" noWrap>
-                    iChat
+                    {page}
                   </Typography>
 
                   <Paper className={classes.search}>
@@ -227,16 +263,21 @@ const Header: React.SFC<ChildComponentProps> = ({ history }) => {
                 </div>
                 <Divider />
                 <List>
-                  {['Inbox', 'Starred', 'Send email', 'Drafts'].map(
-                    (text, index) => (
-                      <ListItem button key={text}>
-                        <ListItemIcon>
-                          {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                        </ListItemIcon>
-                        <ListItemText primary={text} />
-                      </ListItem>
-                    )
-                  )}
+                  {drawerMenu.map(({ menuText, link }, index) => (
+                    <ListItem
+                      button
+                      key={menuText}
+                      onClick={() => {
+                        setPage(menuText);
+                        history.push(link);
+                      }}
+                    >
+                      <ListItemIcon>
+                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                      </ListItemIcon>
+                      <ListItemText primary={menuText} />
+                    </ListItem>
+                  ))}
                 </List>
                 <Divider />
                 <List>
