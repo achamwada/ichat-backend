@@ -1,47 +1,129 @@
-import React, { Fragment } from 'react';
-import ProfileCoverSlider from '../components/ProfileCoverSlider';
-import { Grid, Paper } from '@material-ui/core';
-import { Theme, makeStyles, createStyles } from '@material-ui/core/styles';
-import UserStatus from '../components/chats/UserStatus';
-import Contacts from '../components/chats/Contacts';
-import PhotoGallery from '../components/PhotoGallery';
+import React, { useEffect, useContext, useState } from 'react';
+import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import Card from '@material-ui/core/Card';
+import CardActionArea from '@material-ui/core/CardActionArea';
+import CardActions from '@material-ui/core/CardActions';
+import CardContent from '@material-ui/core/CardContent';
+import CardMedia from '@material-ui/core/CardMedia';
+import Button from '@material-ui/core/Button';
+import Typography from '@material-ui/core/Typography';
+import { CssBaseline, Grid, Avatar, Paper } from '@material-ui/core';
+import PlaceholderImage from '../images/LandingPage/hero/coffee.jpg';
+import TopStories from '../components/layouts/sidebars/TopStories';
+import { AuthContext } from '../context/auth/AuthContext';
+import ProfileGallery from '../components/PhotoGallery';
+import { ThemeProvider } from '@material-ui/styles';
+
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    gridItem: {
-      //padding: theme.spacing(2),
-      marginLeft: theme.spacing(3),
-      marginRight: theme.spacing(3)
+    content: {
+      marginTop: '5em',
+      marginLeft: '15%'
+      // width: '60%'
     },
-    container: {
-      marginTop: theme.spacing(2)
+    card: {},
+    media: {
+      height: 140
+    },
+    profileAvatar: {
+      margin: 10,
+      width: 60,
+      height: 60
+    },
+    galleryContainer: {
+      marginTop: theme.spacing(1)
+    },
+    interestsContainer: {
+      position: 'fixed',
+      top: '5em',
+      right: '5px',
+      width: '100%'
     }
   })
 );
 
-const Profile: React.FC = props => {
+const Profile: React.FC = () => {
   const classes = useStyles();
+
+  const userCxt = useContext(AuthContext);
+  const { user, loadUserData } = userCxt;
+
+  useEffect(() => {
+    loadUserData();
+    console.log('userDetails', user);
+    console.log('userCxt', userCxt);
+    // eslint-disable-next-line
+  }, []);
+
   return (
-    <Fragment>
-      <ProfileCoverSlider />
-
-      <Grid container direction="row" className={classes.container}>
-        <Grid item sm={4}>
-          <Paper>
-            <PhotoGallery />
-          </Paper>
-        </Grid>
-
-        <Grid item sm={5} className={classes.gridItem}>
-          <Paper>
-            <UserStatus />
-          </Paper>
-        </Grid>
-
-        <Grid item sm={2}>
-          <Contacts />
+    <Grid container>
+      <Grid item className={classes.content} sm={7}>
+        <Grid container>
+          <Grid sm={12}>
+            <Card className={classes.card}>
+              <CardActionArea>
+                <CardMedia
+                  className={classes.media}
+                  image={PlaceholderImage}
+                  title="Contemplative Reptile"
+                />
+                <CardContent>
+                  <Grid container>
+                    <Grid item>
+                      <Typography gutterBottom variant="h5" component="h2">
+                        <Avatar
+                          alt="Remy Sharp"
+                          src={user.avatar}
+                          className={classes.profileAvatar}
+                        />
+                      </Typography>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                      >
+                        {user.first_name + ' ' + user.last_name}
+                      </Typography>
+                    </Grid>
+                    <Grid item>
+                      <Typography
+                        variant="body2"
+                        color="textSecondary"
+                        component="p"
+                        style={{ marginTop: '2em' }}
+                      >
+                        {user.bio ? user.bio : 'Missing bio...'}
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                </CardContent>
+              </CardActionArea>
+              <CardActions>
+                <Button size="small" color="primary">
+                  Share
+                </Button>
+                <Button size="small" color="primary">
+                  Learn More
+                </Button>
+              </CardActions>
+            </Card>
+          </Grid>
+          <Grid sm={12} className={classes.galleryContainer}>
+            <Typography variant="h5" style={{ padding: '10px' }}>
+              Profile Gallery
+            </Typography>
+            <Paper>
+              <ProfileGallery />
+            </Paper>
+          </Grid>
         </Grid>
       </Grid>
-    </Fragment>
+      <Grid sm={3} className={classes.interestsContainer}>
+        <Paper style={{ minWidth: '100%', minHeight: '5em' }}>
+          <TopStories />
+        </Paper>
+      </Grid>
+    </Grid>
   );
 };
 
