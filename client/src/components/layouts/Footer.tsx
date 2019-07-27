@@ -9,7 +9,10 @@ import { AuthContext } from '../../context/auth/AuthContext';
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      width: '100%'
+      width: '100%',
+      position: 'fixed',
+      bottom: '1px',
+      zIndex: theme.zIndex.drawer + 2
     }
   })
 );
@@ -29,8 +32,8 @@ const Footer: React.FC = props => {
           return null;
         } else {
           return (
-            <Grid container direction="row" className={classes.container}>
-              <Grid item xs={12}>
+            <Grid container direction="column" className={classes.container}>
+              <Grid item justify="center">
                 <Paper square>
                   <Tabs
                     centered
