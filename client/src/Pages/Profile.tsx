@@ -31,7 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 60
     },
     galleryContainer: {
-      marginTop: theme.spacing(1)
+      //border: `0.5px solid #81d4fa`,
+      marginTop: theme.spacing(3),
+      padding: theme.spacing(1),
+      boxShadow: `1px 5px 5px #bdbdbd`
     },
     interestsContainer: {
       position: 'fixed',
@@ -109,7 +112,7 @@ const Profile: React.FC = () => {
             </Card>
           </Grid>
           <Grid sm={12} className={classes.galleryContainer}>
-            <Typography variant="h5" style={{ padding: '10px' }}>
+            <Typography variant="h5" style={{ padding: '20px' }}>
               Profile Gallery
             </Typography>
             <Paper>
@@ -119,9 +122,9 @@ const Profile: React.FC = () => {
         </Grid>
       </Grid>
       <Grid sm={3} className={classes.interestsContainer}>
-        <Paper style={{ minWidth: '100%', minHeight: '5em' }}>
-          <TopStories />
-        </Paper>
+        <TopStories />
+        <br />
+        <TopStories />
       </Grid>
     </Grid>
   );

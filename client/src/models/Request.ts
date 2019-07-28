@@ -132,3 +132,15 @@ export interface Chat {
 export interface ChatList {
   chats: Array<Chat>;
 }
+
+export interface PageDetails {
+  pageID: number;
+  title: string;
+  url: string;
+  description: string;
+  icon: any | null;
+}
+export interface Page {
+  details: PageDetails | null;
+  setPage: (pageDetails: PageDetails) => void;
+}

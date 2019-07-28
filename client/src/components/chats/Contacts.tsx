@@ -49,7 +49,7 @@ const Contacts: React.FC = props => {
       </Typography>
 
       <List className={classes.root}>
-        {friends ? (
+        {friends && friends.length > 0 ? (
           friends.map(friend => {
             const { related_user } = friend;
             if (related_user) {
@@ -70,11 +70,11 @@ const Contacts: React.FC = props => {
                 </ListItem>
               );
             } else {
-              return <p key={i++}>error here</p>;
+              return <ListItem key={i++}>error here</ListItem>;
             }
           })
         ) : (
-          <p>no contact</p>
+          <ListItem>You have no contacts yet</ListItem>
         )}
       </List>
     </Paper>

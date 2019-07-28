@@ -1,38 +1,46 @@
-import React, { useContext, useEffect, useState } from 'react';
+import {
+  faEnvelope,
+  faHome,
+  faImages,
+  faSignOutAlt,
+  faUser,
+  faUsers
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  AppBar,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  InputBase,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Toolbar,
+  Typography
+} from '@material-ui/core';
 import {
   createStyles,
   makeStyles,
   Theme,
   useTheme
 } from '@material-ui/core/styles';
-import {
-  Toolbar,
-  Typography,
-  IconButton,
-  Divider,
-  CssBaseline,
-  AppBar,
-  List,
-  ListItemIcon,
-  ListItemText,
-  Drawer,
-  Grid,
-  Hidden,
-  ListItem,
-  InputBase,
-  Paper
-} from '@material-ui/core';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import DirectionsIcon from '@material-ui/icons/Directions';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
-import clsx from 'clsx';
-import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
-import { AuthContext } from '../../context/auth/AuthContext';
-
 import SearchIcon from '@material-ui/icons/Search';
-import DirectionsIcon from '@material-ui/icons/Directions';
+import clsx from 'clsx';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { AuthContext } from '../../context/auth/AuthContext';
+import PageContext from '../../context/page/PageContext';
+import { PageDetails } from '../../models/Request';
 
 const drawerWidth = 240;
 
@@ -122,6 +130,16 @@ const useStyles = makeStyles((theme: Theme) =>
       width: '20%',
       right: '10%',
       position: 'fixed'
+    },
+    faIcon: {
+      fontSize: 18
+      // padding if needed (e.g., theme.spacing.unit * 2)
+      // margin if needed
+    },
+    muiIcon: {
+      fontSize: 18
+      // padding if needed
+      // margin if needed
     }
   })
 );
@@ -129,43 +147,73 @@ const useStyles = makeStyles((theme: Theme) =>
 interface DrawerMenuItem {
   menuText: string;
   link: string;
-  icon: string;
+  icon: any;
 }
 
 interface ChildComponentProps extends RouteComponentProps<any> {}
 
 const Header: React.SFC<ChildComponentProps> = ({ history }) => {
-  const [page, setPage] = useState('iChat');
   const classes = useStyles();
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
+  const [selectedPage, setSelectedPage] = useState({
+    pageID: 1,
+    title: 'iChat',
+    url: '/',
+    description: 'Home page',
+    icon: <FontAwesomeIcon className={classes.faIcon} icon={faHome} />
+  });
 
-  const drawerMenu: Array<DrawerMenuItem> = [
+  const pageCtx = useContext(PageContext);
+  const { details, setPage } = pageCtx;
+
+  useEffect(() => {
+    setPage(selectedPage);
+  }, [selectedPage]);
+
+  const drawerMenu: Array<PageDetails> = [
     {
-      menuText: 'Home',
-      link: '/',
-      icon: ''
+      pageID: 1,
+      title: 'Home',
+      url: '/',
+      description: 'Home page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faHome} />
     },
     {
-      menuText: 'Profile',
-      link: '/profile',
-      icon: ''
+      pageID: 2,
+      title: 'Profile',
+      url: '/profile',
+      description: 'Profile page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faUser} />
     },
     {
-      menuText: 'Channels',
-      link: '/channels',
-      icon: ''
+      pageID: 3,
+      title: 'Channels',
+      url: '/channels',
+      description: 'Channels page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faUsers} />
     },
 
     {
-      menuText: 'Inbox',
-      link: '/inbox',
-      icon: ''
+      pageID: 4,
+      title: 'Inbox',
+      url: '/inbox',
+      description: 'inbox page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faEnvelope} />
     },
     {
-      menuText: 'Gallery',
-      link: '/gallery',
-      icon: ''
+      pageID: 5,
+      title: 'Gallery',
+      url: '/gallery',
+      description: 'Gallery page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faImages} />
+    },
+    {
+      pageID: 6,
+      title: 'Log Out',
+      url: '/login',
+      description: 'Logged Out',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faSignOutAlt} />
     }
   ];
 
@@ -206,7 +254,7 @@ const Header: React.SFC<ChildComponentProps> = ({ history }) => {
                     <MenuIcon />
                   </IconButton>
                   <Typography variant="h6" noWrap>
-                    {page}
+                    {selectedPage.title}
                   </Typography>
 
                   <Paper className={classes.search}>
@@ -262,34 +310,48 @@ const Header: React.SFC<ChildComponentProps> = ({ history }) => {
                   </IconButton>
                 </div>
                 <Divider />
-                <List>
-                  {drawerMenu.map(({ menuText, link }, index) => (
-                    <ListItem
-                      button
-                      key={menuText}
-                      onClick={() => {
-                        setPage(menuText);
-                        history.push(link);
-                      }}
-                    >
-                      <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                      </ListItemIcon>
-                      <ListItemText primary={menuText} />
-                    </ListItem>
-                  ))}
-                </List>
-                <Divider />
-                <List>
-                  {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                    <ListItem button key={text}>
-                      <ListItemIcon>
-                        {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                      </ListItemIcon>
-                      <ListItemText primary={text} />
-                    </ListItem>
-                  ))}
-                </List>
+
+                {details && details.url !== 'channels' ? (
+                  <Fragment>
+                    <List>
+                      {drawerMenu.map(page => (
+                        <ListItem
+                          button
+                          selected={page.url === selectedPage.url}
+                          key={page.pageID}
+                          onClick={() => {
+                            if (page.title === 'Log Out') {
+                              localStorage.removeItem('auth-token');
+                              window.location.href = page.url;
+                            } else {
+                              setPage(page);
+                              setSelectedPage(page);
+                              history.push(page.url);
+                            }
+                          }}
+                        >
+                          <ListItemIcon className="container">
+                            {page.icon}
+                          </ListItemIcon>
+                          <ListItemText primary={page.title} />
+                        </ListItem>
+                      ))}
+                    </List>
+                    <Divider />
+                    <List>
+                      {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                        <ListItem button key={text}>
+                          <ListItemIcon>
+                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                          </ListItemIcon>
+                          <ListItemText primary={text} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Fragment>
+                ) : (
+                  'error'
+                )}
               </Drawer>
             </div>
           );

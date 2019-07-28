@@ -47,10 +47,13 @@ export default function Home() {
   const friendCtx = useContext(FriendContext);
   const { friends, getAllFriends } = friendCtx;
 
+  const [myFriends, setFriends] = useState();
+
   useEffect(() => {
     getAllFriends();
+    setFriends(friends);
     // eslint-disable-next-line
-  }, []);
+  }, [myFriends]);
 
   return (
     <Fragment>

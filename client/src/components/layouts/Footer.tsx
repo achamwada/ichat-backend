@@ -5,6 +5,7 @@ import Tab from '@material-ui/core/Tab';
 import Tabs from '@material-ui/core/Tabs';
 import React from 'react';
 import { AuthContext } from '../../context/auth/AuthContext';
+import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
 
 const useStyle = makeStyles((theme: Theme) =>
   createStyles({
@@ -17,13 +18,41 @@ const useStyle = makeStyles((theme: Theme) =>
   })
 );
 
-const Footer: React.FC = props => {
+interface FooterMenu {
+  text: string;
+  link: string;
+}
+
+const Footer: React.FC<RouteComponentProps> = ({ history }) => {
   const classes = useStyle();
   const [value, setValue] = React.useState(0);
 
   function handleChange(event: React.ChangeEvent<{}>, newValue: number) {
     setValue(newValue);
   }
+
+  const footerMenu: Array<FooterMenu> = [
+    {
+      text: 'News Feed',
+      link: '/'
+    },
+    {
+      text: 'Chats',
+      link: '/chats'
+    },
+    {
+      text: 'Friends',
+      link: '/friends'
+    },
+    {
+      text: 'Profile',
+      link: '/profile'
+    },
+    {
+      text: 'Contact',
+      link: '/contact'
+    }
+  ];
 
   return (
     <AuthContext.Consumer>
@@ -33,7 +62,7 @@ const Footer: React.FC = props => {
         } else {
           return (
             <Grid container direction="column" className={classes.container}>
-              <Grid item justify="center">
+              <Grid item>
                 <Paper square>
                   <Tabs
                     centered
@@ -42,11 +71,15 @@ const Footer: React.FC = props => {
                     textColor="primary"
                     onChange={handleChange}
                   >
-                    <Tab label="News Feed" />
-                    <Tab label="Chats" />
-                    <Tab label="Friends" />
-                    <Tab label="Profile" />
-                    <Tab label="Contact" />
+                    {footerMenu.map(({ text, link }, index) => {
+                      return (
+                        <Tab
+                          key={index}
+                          label={text}
+                          onClick={() => history.push(link)}
+                        />
+                      );
+                    })}
                   </Tabs>
                 </Paper>
               </Grid>
@@ -57,4 +90,4 @@ const Footer: React.FC = props => {
     </AuthContext.Consumer>
   );
 };
-export default Footer;
+export default withRouter(Footer);
