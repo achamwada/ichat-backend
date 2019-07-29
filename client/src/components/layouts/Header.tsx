@@ -1,257 +1,358 @@
-import AppBar from '@material-ui/core/AppBar';
-import Badge from '@material-ui/core/Badge';
-import IconButton from '@material-ui/core/IconButton';
-import InputBase from '@material-ui/core/InputBase';
-import Menu from '@material-ui/core/Menu';
-import MenuItem from '@material-ui/core/MenuItem';
+import {
+  faEnvelope,
+  faHome,
+  faImages,
+  faSignOutAlt,
+  faUser,
+  faUsers
+} from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  AppBar,
+  CssBaseline,
+  Divider,
+  Drawer,
+  IconButton,
+  InputBase,
+  List,
+  ListItem,
+  ListItemIcon,
+  ListItemText,
+  Paper,
+  Toolbar,
+  Typography
+} from '@material-ui/core';
 import {
   createStyles,
-  fade,
   makeStyles,
-  Theme
+  Theme,
+  useTheme
 } from '@material-ui/core/styles';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import AccountCircle from '@material-ui/icons/AccountCircle';
+import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+import DirectionsIcon from '@material-ui/icons/Directions';
 import MailIcon from '@material-ui/icons/Mail';
 import MenuIcon from '@material-ui/icons/Menu';
-import MoreIcon from '@material-ui/icons/MoreVert';
-import NotificationsIcon from '@material-ui/icons/Notifications';
+import InboxIcon from '@material-ui/icons/MoveToInbox';
 import SearchIcon from '@material-ui/icons/Search';
-import React from 'react';
-import { RouteComponentProps, withRouter, Link } from 'react-router-dom';
+import clsx from 'clsx';
+import React, { useState, useEffect, useContext, Fragment } from 'react';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { AuthContext } from '../../context/auth/AuthContext';
+import PageContext from '../../context/page/PageContext';
+import { PageDetails } from '../../models/Request';
 
-interface ChildComponentProps extends RouteComponentProps<any> {}
+const drawerWidth = 240;
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    grow: {
-      flexGrow: 1,
-      marginBottom: theme.spacing(1)
+    root: {
+      display: 'flex'
+    },
+    appBar: {
+      zIndex: theme.zIndex.drawer + 1,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      })
+    },
+    appBarShift: {
+      marginLeft: drawerWidth,
+      width: `calc(100% - ${drawerWidth}px)`,
+      transition: theme.transitions.create(['width', 'margin'], {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen
+      })
     },
     menuButton: {
-      marginRight: theme.spacing(2)
+      //marginRight: 36
     },
-    title: {
-      display: 'none',
+    hide: {
+      display: 'none'
+    },
+    drawer: {
+      width: drawerWidth,
+      flexShrink: 0,
+      whiteSpace: 'nowrap'
+    },
+    drawerOpen: {
+      width: drawerWidth,
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.enteringScreen
+      })
+    },
+    drawerClose: {
+      transition: theme.transitions.create('width', {
+        easing: theme.transitions.easing.sharp,
+        duration: theme.transitions.duration.leavingScreen
+      }),
+      overflowX: 'hidden',
+      width: theme.spacing(7) + 1,
       [theme.breakpoints.up('sm')]: {
-        display: 'block'
+        width: theme.spacing(9) + 1
       }
     },
-    search: {
-      position: 'relative',
-      borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25)
-      },
-      marginRight: theme.spacing(2),
-      marginLeft: 0,
-      width: '100%',
-      [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(3),
-        width: 'auto'
-      }
-    },
-    searchIcon: {
-      width: theme.spacing(7),
-      height: '100%',
-      position: 'absolute',
-      pointerEvents: 'none',
+    toolbar: {
       display: 'flex',
       alignItems: 'center',
-      justifyContent: 'center'
+      justifyContent: 'flex-end',
+      padding: '0 8px',
+      ...theme.mixins.toolbar
     },
-    inputRoot: {
-      color: 'inherit'
+    content: {
+      flexGrow: 1,
+      padding: theme.spacing(3),
+      left: '20%'
     },
-    inputInput: {
-      padding: theme.spacing(1, 1, 1, 7),
-      transition: theme.transitions.create('width'),
-      width: '100%',
-      [theme.breakpoints.up('md')]: {
-        width: 200
-      }
+    contacts: {
+      position: 'fixed',
+      top: '5em',
+      right: '10%',
+      width: '20%'
     },
-    sectionDesktop: {
-      display: 'none',
-      [theme.breakpoints.up('md')]: {
-        display: 'flex'
-      }
+    input: {
+      marginLeft: 8,
+      flex: 1
     },
-    sectionMobile: {
+    iconButton: {
+      padding: 10
+    },
+    divider: {
+      width: 1,
+      height: 28,
+      margin: 4
+    },
+    search: {
+      padding: '2px 4px',
       display: 'flex',
-      [theme.breakpoints.up('md')]: {
-        display: 'none'
-      }
+      alignItems: 'center',
+      width: '20%',
+      right: '10%',
+      position: 'fixed'
+    },
+    faIcon: {
+      fontSize: 18
+      // padding if needed (e.g., theme.spacing.unit * 2)
+      // margin if needed
+    },
+    muiIcon: {
+      fontSize: 18
+      // padding if needed
+      // margin if needed
     }
   })
 );
 
+interface DrawerMenuItem {
+  menuText: string;
+  link: string;
+  icon: any;
+}
+
+interface ChildComponentProps extends RouteComponentProps<any> {}
+
 const Header: React.SFC<ChildComponentProps> = ({ history }) => {
   const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(true);
+  const [selectedPage, setSelectedPage] = useState({
+    pageID: 1,
+    title: 'iChat',
+    url: '/',
+    description: 'Home page',
+    icon: <FontAwesomeIcon className={classes.faIcon} icon={faHome} />
+  });
 
-  const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [
-    mobileMoreAnchorEl,
-    setMobileMoreAnchorEl
-  ] = React.useState<null | HTMLElement>(null);
+  const pageCtx = useContext(PageContext);
+  const { details, setPage } = pageCtx;
 
-  const isMenuOpen = Boolean(anchorEl);
-  const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+  useEffect(() => {
+    setPage(selectedPage);
+  }, [selectedPage]);
 
-  function handleProfileMenuOpen(event: React.MouseEvent<HTMLElement>) {
-    setAnchorEl(event.currentTarget);
+  const drawerMenu: Array<PageDetails> = [
+    {
+      pageID: 1,
+      title: 'Home',
+      url: '/',
+      description: 'Home page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faHome} />
+    },
+    {
+      pageID: 2,
+      title: 'Profile',
+      url: '/profile',
+      description: 'Profile page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faUser} />
+    },
+    {
+      pageID: 3,
+      title: 'Channels',
+      url: '/channels',
+      description: 'Channels page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faUsers} />
+    },
+
+    {
+      pageID: 4,
+      title: 'Inbox',
+      url: '/inbox',
+      description: 'inbox page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faEnvelope} />
+    },
+    {
+      pageID: 5,
+      title: 'Gallery',
+      url: '/gallery',
+      description: 'Gallery page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faImages} />
+    },
+    {
+      pageID: 6,
+      title: 'Log Out',
+      url: '/login',
+      description: 'Logged Out',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faSignOutAlt} />
+    }
+  ];
+
+  function handleDrawerOpen() {
+    setOpen(true);
   }
 
-  function handleMobileMenuClose() {
-    setMobileMoreAnchorEl(null);
+  function handleDrawerClose() {
+    setOpen(false);
   }
-
-  function handleMenuClose() {
-    setAnchorEl(null);
-    handleMobileMenuClose();
-  }
-
-  function handleMobileMenuOpen(event: React.MouseEvent<HTMLElement>) {
-    setMobileMoreAnchorEl(event.currentTarget);
-  }
-
-  const menuId = 'primary-search-account-menu';
-  const renderMenu = (
-    <Menu
-      anchorEl={anchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={menuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMenuOpen}
-      onClose={handleMenuClose}
-    >
-      <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-    </Menu>
-  );
-
-  const mobileMenuId = 'primary-search-account-menu-mobile';
-  const renderMobileMenu = (
-    <Menu
-      anchorEl={mobileMoreAnchorEl}
-      anchorOrigin={{ vertical: 'top', horizontal: 'right' }}
-      id={mobileMenuId}
-      keepMounted
-      transformOrigin={{ vertical: 'top', horizontal: 'right' }}
-      open={isMobileMenuOpen}
-      onClose={handleMobileMenuClose}
-    >
-      <MenuItem>
-        <IconButton aria-label="Show 4 new mails" color="inherit">
-          <Badge badgeContent={4} color="secondary">
-            <MailIcon />
-          </Badge>
-        </IconButton>
-        <p>Messages</p>
-      </MenuItem>
-      <MenuItem>
-        <IconButton aria-label="Show 11 new notifications" color="inherit">
-          <Badge badgeContent={11} color="secondary">
-            <NotificationsIcon />
-          </Badge>
-        </IconButton>
-        <p>Notifications</p>
-      </MenuItem>
-      <MenuItem onClick={handleProfileMenuOpen}>
-        <IconButton
-          aria-label="Account of current user"
-          aria-controls="primary-search-account-menu"
-          aria-haspopup="true"
-          color="inherit"
-        >
-          <AccountCircle />
-        </IconButton>
-        <p>Profile</p>
-      </MenuItem>
-    </Menu>
-  );
 
   return (
     <AuthContext.Consumer>
       {({ authenticated }) => {
         if (!authenticated) {
           //history.push('/login');
-          return null;
-          // <Redirect to="/login" push />;
+          return null; //<Redirect to="/login" push />;
         } else {
           return (
-            <div className={classes.grow}>
-              <AppBar position="fixed" style={{ backgroundColor: '#3f51b5' }}>
+            <div className={classes.root}>
+              <CssBaseline />
+              <AppBar
+                position="fixed"
+                className={clsx(classes.appBar, {
+                  [classes.appBarShift]: open
+                })}
+              >
                 <Toolbar>
                   <IconButton
-                    edge="start"
-                    className={classes.menuButton}
                     color="inherit"
-                    aria-label="Open drawer"
+                    aria-label="open drawer"
+                    onClick={handleDrawerOpen}
+                    edge="start"
+                    className={clsx(classes.menuButton, {
+                      [classes.hide]: open
+                    })}
                   >
                     <MenuIcon />
                   </IconButton>
-                  <Typography className={classes.title} variant="h6" noWrap>
-                    <Link to="/">iChat</Link>
+                  <Typography variant="h6" noWrap>
+                    {selectedPage.title}
                   </Typography>
-                  <div className={classes.search}>
-                    <div className={classes.searchIcon}>
-                      <SearchIcon />
-                    </div>
+
+                  <Paper className={classes.search}>
+                    <IconButton
+                      className={classes.iconButton}
+                      aria-label="menu"
+                    >
+                      <MenuIcon />
+                    </IconButton>
                     <InputBase
-                      placeholder="Search…"
-                      classes={{
-                        root: classes.inputRoot,
-                        input: classes.inputInput
-                      }}
-                      inputProps={{ 'aria-label': 'Search' }}
+                      className={classes.input}
+                      placeholder="Search for friends"
+                      inputProps={{ 'aria-label': 'search for friends' }}
                     />
-                  </div>
-                  <div className={classes.grow} />
-                  <div className={classes.sectionDesktop}>
-                    <IconButton aria-label="Show 4 new mails" color="inherit">
-                      <Badge badgeContent={4} color="secondary">
-                        <MailIcon />
-                      </Badge>
-                    </IconButton>
                     <IconButton
-                      aria-label="Show 17 new notifications"
-                      color="inherit"
+                      className={classes.iconButton}
+                      aria-label="search"
                     >
-                      <Badge badgeContent={17} color="secondary">
-                        <NotificationsIcon />
-                      </Badge>
+                      <SearchIcon />
                     </IconButton>
+                    <Divider className={classes.divider} />
                     <IconButton
-                      edge="end"
-                      aria-label="Account of current user"
-                      aria-controls={menuId}
-                      aria-haspopup="true"
-                      onClick={handleProfileMenuOpen}
-                      color="inherit"
+                      color="primary"
+                      className={classes.iconButton}
+                      aria-label="directions"
                     >
-                      <AccountCircle />
+                      <DirectionsIcon />
                     </IconButton>
-                  </div>
-                  <div className={classes.sectionMobile}>
-                    <IconButton
-                      aria-label="Show more"
-                      aria-controls={mobileMenuId}
-                      aria-haspopup="true"
-                      onClick={handleMobileMenuOpen}
-                      color="inherit"
-                    >
-                      <MoreIcon />
-                    </IconButton>
-                  </div>
+                  </Paper>
                 </Toolbar>
               </AppBar>
-              {renderMobileMenu}
-              {renderMenu}
+              <Drawer
+                variant="permanent"
+                className={clsx(classes.drawer, {
+                  [classes.drawerOpen]: open,
+                  [classes.drawerClose]: !open
+                })}
+                classes={{
+                  paper: clsx({
+                    [classes.drawerOpen]: open,
+                    [classes.drawerClose]: !open
+                  })
+                }}
+                open={open}
+              >
+                <div className={classes.toolbar}>
+                  <IconButton onClick={handleDrawerClose}>
+                    {theme.direction === 'rtl' ? (
+                      <ChevronRightIcon />
+                    ) : (
+                      <ChevronLeftIcon />
+                    )}
+                  </IconButton>
+                </div>
+                <Divider />
+
+                {details && details.url !== 'channels' ? (
+                  <Fragment>
+                    <List>
+                      {drawerMenu.map(page => (
+                        <ListItem
+                          button
+                          selected={page.url === selectedPage.url}
+                          key={page.pageID}
+                          onClick={() => {
+                            if (page.title === 'Log Out') {
+                              localStorage.removeItem('auth-token');
+                              window.location.href = page.url;
+                            } else {
+                              setPage(page);
+                              setSelectedPage(page);
+                              history.push(page.url);
+                            }
+                          }}
+                        >
+                          <ListItemIcon className="container">
+                            {page.icon}
+                          </ListItemIcon>
+                          <ListItemText primary={page.title} />
+                        </ListItem>
+                      ))}
+                    </List>
+                    <Divider />
+                    <List>
+                      {['All mail', 'Trash', 'Spam'].map((text, index) => (
+                        <ListItem button key={text}>
+                          <ListItemIcon>
+                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                          </ListItemIcon>
+                          <ListItemText primary={text} />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </Fragment>
+                ) : (
+                  'error'
+                )}
+              </Drawer>
             </div>
           );
         }

@@ -58,7 +58,7 @@ const useStyles = makeStyles((theme: Theme) =>
 );
 
 const Login: React.FC<RouteComponentProps> = ({ history }) => {
-  const { loginUser } = useContext(AuthContext);
+  const { loginUser, authenticated } = useContext(AuthContext);
 
   const [state, setstate] = useState({
     email_address: '',
@@ -70,6 +70,15 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
 
   useEffect(() => {
     loginUser(state);
+    if (authenticated) {
+      window.location.href = '/';
+    }
+
+    // return () => {
+    //   if (authenticated) {
+    //     window.location.href = '/';
+    //   }
+    // };
 
     // eslint-disable-next-line
   }, [state]);

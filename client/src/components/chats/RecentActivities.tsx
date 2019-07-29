@@ -4,6 +4,7 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
+import FriendsList from '../../components/FriendsList';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import React, { useContext, useEffect } from 'react';
 import FriendContext from '../../context/friends/FriendsContext';
@@ -18,13 +19,12 @@ const useStyles = makeStyles((theme: Theme) =>
       //paddingTop: theme.spacing(2),
       paddingBottom: theme.spacing(2),
       //height: '70vh',
-      borderBottom: 'solid #F0F0F0 1px',
-      marginBottom: theme.spacing(1)
+      borderBottom: 'solid #F0F0F0 1px'
     }
   })
 );
 
-const Contacts: React.FC = props => {
+const RecentActivities: React.FC = props => {
   const classes = useStyles({});
 
   const friendCtx = useContext(FriendContext);
@@ -45,40 +45,12 @@ const Contacts: React.FC = props => {
         component="h3"
         style={{ padding: '1rem', backgroundColor: '#3f51b5', color: '#fff' }}
       >
-        Contacts
+        Recent Activities
       </Typography>
 
-      <List className={classes.root}>
-        {friends && friends.length > 0 ? (
-          friends.map(friend => {
-            const { related_user } = friend;
-            if (related_user) {
-              const labelId = `checkbox-list-secondary-label-${
-                related_user.first_name
-              }`;
-              return (
-                <ListItem key={related_user._id} button>
-                  <ListItemAvatar>
-                    <Avatar alt={`Avatar n°`} src={related_user.avatar} />
-                  </ListItemAvatar>
-                  <ListItemText
-                    id={labelId}
-                    primary={`${related_user.first_name} ${
-                      related_user.last_name
-                    }`}
-                  />
-                </ListItem>
-              );
-            } else {
-              return <ListItem key={i++}>error here</ListItem>;
-            }
-          })
-        ) : (
-          <ListItem>You have no contacts yet</ListItem>
-        )}
-      </List>
+      <FriendsList />
     </Paper>
   );
 };
 
-export default Contacts;
+export default RecentActivities;

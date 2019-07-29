@@ -1,29 +1,40 @@
-import React, { Fragment, useState, useContext, useEffect } from 'react';
-import { Grid, Paper, Typography } from '@material-ui/core/';
-import { Theme, createStyles, makeStyles } from '@material-ui/core/styles';
+import React, { useContext, useEffect, useState, Fragment } from 'react';
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  useTheme
+} from '@material-ui/core/styles';
+import { CssBaseline, Grid, Hidden } from '@material-ui/core';
+
 import ChatItem from '../components/chats/ChatItem';
-import LeftSideBar from '../components/layouts/sidebars/LeftSideBar';
-import FriendsList from '../components/FriendsList';
-import Divider from '@material-ui/core/Divider';
-import UserStatus from '../components/chats/UserStatus';
-import Hidden from '@material-ui/core/Hidden';
 import Contacts from '../components/chats/Contacts';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
-import statusContext from '../context/status/statusContext';
-import { Status } from '../models/Request';
+import RecentActivities from '../components/chats/RecentActivities';
+import UserStatus from '../components/chats/UserStatus';
 import FriendContext from '../context/friends/FriendsContext';
+import statusContext from '../context/status/statusContext';
 
-const Home: React.FC<RouteComponentProps> = ({ history }) => {
-  const useStyles = makeStyles((theme: Theme) =>
-    createStyles({
-      root: {
-        //padding: theme.spacing(3),
-        margin: theme.spacing(1)
-      }
-    })
-  );
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    content: {
+      marginTop: theme.spacing(3),
+      padding: theme.spacing(3),
+      marginLeft: '18%'
+    },
+    contacts: {
+      position: 'fixed',
+      top: '5em',
+      right: '10%',
+      width: '20%'
+    }
+  })
+);
 
-  const [chatsList, setChatList] = useState([1, 2, 3]);
+export default function Home() {
+  const classes = useStyles();
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
   const statusCtx = useContext(statusContext);
   const { statuses, getStatuses } = statusCtx;
 
@@ -36,44 +47,35 @@ const Home: React.FC<RouteComponentProps> = ({ history }) => {
   const friendCtx = useContext(FriendContext);
   const { friends, getAllFriends } = friendCtx;
 
+  const [myFriends, setFriends] = useState();
+
   useEffect(() => {
     getAllFriends();
+    setFriends(friends);
     // eslint-disable-next-line
-  }, []);
+  }, [myFriends]);
 
-  console.log('statuses ==>', statuses);
-  console.log('friends ==>', friends);
-
-  //history.push('/login');
-
-  const classes = useStyles();
   return (
     <Fragment>
-      <Hidden smDown>
-        <Grid item md={3}>
-          <LeftSideBar />
+      <CssBaseline />
+      <Grid container className={classes.content}>
+        <Grid item xs={12} sm={6} xl={6} style={{ marginBottom: '2em' }}>
+          <UserStatus />
+          {statuses && statuses.length > 0 ? (
+            statuses.map((status, index) => {
+              return <ChatItem key={status._id} status={status} />;
+            })
+          ) : (
+            <p>no statuses</p>
+          )}
         </Grid>
-      </Hidden>
-
-      <Grid item xs={12} sm={6} xl={6}>
-        <UserStatus />
-
-        {statuses && statuses.length > 0 ? (
-          statuses.map((status, index) => {
-            return <ChatItem key={status._id} status={status} />;
-          })
-        ) : (
-          <p>no statuses</p>
-        )}
+        <Hidden smDown>
+          <Grid item sm={5} xl={5} className={classes.contacts}>
+            <Contacts />
+            <RecentActivities />
+          </Grid>
+        </Hidden>
       </Grid>
-
-      <Hidden smDown>
-        <Grid item sm={3} xl={3}>
-          <Contacts />
-        </Grid>
-      </Hidden>
     </Fragment>
   );
-};
-
-export default withRouter(Home);
+}

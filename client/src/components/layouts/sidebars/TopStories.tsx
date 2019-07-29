@@ -1,7 +1,7 @@
 import Avatar from '@material-ui/core/Avatar';
 import Divider from '@material-ui/core/Divider';
 import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import { ListItem, ListSubheader, Paper } from '@material-ui/core';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
@@ -20,6 +20,19 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     inline: {
       display: 'inline'
+    },
+    listItem: {
+      //padding: theme.spacing(2)
+    },
+    subHeading: {
+      padding: theme.spacing(2),
+      backgroundColor: '#3f51b5',
+      color: '#fff'
+    },
+
+    list: {
+      border: `1px solid #e0e0e0`,
+      padding: 0
     }
   })
 );
@@ -30,15 +43,13 @@ function Row(props: ListChildComponentProps) {
 
   return (
     <Fragment>
-      <Typography
-        variant="h5"
-        component="h3"
-        style={{ padding: '1rem', backgroundColor: '#3f51b5', color: '#fff' }}
-      >
-        Top Stories
-      </Typography>
-      <List>
-        <ListItem alignItems="flex-start">
+      <List className={classes.list}>
+        <ListSubheader style={{ padding: 0 }}>
+          <Typography variant="h5" className={classes.subHeading}>
+            Top Stories
+          </Typography>
+        </ListSubheader>
+        <ListItem alignItems="flex-start" className={classes.listItem}>
           <ListItemAvatar>
             <Avatar
               alt="Remy Sharp"

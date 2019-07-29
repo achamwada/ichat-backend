@@ -61,7 +61,7 @@ export interface Auth {
   loading?: Loading | boolean;
   errors?: Array<ResponseError> | boolean;
   loginUser: Function;
-  loadUserData: Function | null;
+  loadUserData: Function;
 }
 
 export interface AuthStatusPayload {
@@ -122,15 +122,25 @@ export interface StatusState {
   getStatuses: () => void;
 }
 
-
-export interface Chat{
-  from: string,
-  message: string,
-  channel: string,
-  date_created: string,
-
+export interface Chat {
+  from: string;
+  message: string;
+  channel: string;
+  date_created: string;
 }
 
-export interface ChatList{
-  chats: Array<Chat>
+export interface ChatList {
+  chats: Array<Chat>;
+}
+
+export interface PageDetails {
+  pageID: number;
+  title: string;
+  url: string;
+  description: string;
+  icon: any | null;
+}
+export interface Page {
+  details: PageDetails | null;
+  setPage: (pageDetails: PageDetails) => void;
 }
