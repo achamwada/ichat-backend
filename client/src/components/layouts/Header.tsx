@@ -37,7 +37,7 @@ import InboxIcon from '@material-ui/icons/MoveToInbox';
 import SearchIcon from '@material-ui/icons/Search';
 import clsx from 'clsx';
 import React, { useState, useEffect, useContext, Fragment } from 'react';
-import { RouteComponentProps, withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { AuthContext } from '../../context/auth/AuthContext';
 import PageContext from '../../context/page/PageContext';
 import { PageDetails } from '../../models/Request';
@@ -228,9 +228,12 @@ const Header: React.SFC<ChildComponentProps> = ({ history }) => {
   return (
     <AuthContext.Consumer>
       {({ authenticated }) => {
-        if (!authenticated) {
-          //history.push('/login');
-          return null; //<Redirect to="/login" push />;
+        if (!authenticated && history.location.pathname !== '/login') {
+          history.push('/login');
+        } else if (authenticated && history.location.pathname == '/login') {
+          history.push('/');
+        } else if (!authenticated && history.location.pathname == '/login') {
+          return null;
         } else {
           return (
             <div className={classes.root}>
