@@ -1,16 +1,16 @@
-const express = require("express");
+const express = require('express');
 const router = express.Router();
-const { check, validationResult } = require("express-validator");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
-const User = require("../../models/User");
-const config = require("config");
+const { check, validationResult } = require('express-validator');
+const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const User = require('../../models/User');
+const config = require('config');
 
 router.post(
-  "/",
+  '/',
   [
-    check("email_address", "Email is required").isEmail(),
-    check("password", "Password is required")
+    check('email_address', 'Email is required').isEmail(),
+    check('password', 'Password is required')
       .not()
       .isEmpty()
   ],
@@ -28,24 +28,24 @@ router.post(
       });
       console.log(isUser);
 
-      if (!isUser) return res.status(404).json({ msg: "User not found" });
+      if (!isUser) return res.status(404).json({ msg: 'User not found' });
 
       await bcrypt.compare(password, isUser.password, (err, match) => {
-        if (!match) return res.status(404).json({ msg: "No match", err });
+        if (!match) return res.status(404).json({ msg: 'No match', err });
 
         const payload = {
           user_id: isUser._id
         };
 
-        const token = jwt.sign(payload, config.get("JWT_SECRET"), {
+        const token = jwt.sign(payload, config.get('JWT_SECRET'), {
           expiresIn: 36000
         });
 
-        res.cookie('x-auth-token',token, {
+        res.cookie('x-auth-token', token, {
           maxAge: 36000,
           path: '/',
           httpOnly: true
-        })
+        });
 
         return res.status(200).json({ token, authenticated: true });
       });
@@ -53,7 +53,7 @@ router.post(
       console.log(error.message);
       return res
         .status(500)
-        .json({ msg: "Server Error", error: error.message });
+        .json({ msg: 'Server Error', error: error.message });
     }
   }
 );

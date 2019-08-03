@@ -13,6 +13,8 @@ app.use('/api/user', require('./api/routes/user/user'));
 app.use('/api/friends', require('./api/routes/friend/friend'));
 app.use('/api/auth', require('./api/routes/auth/login'));
 app.use('/api/status', require('./api/routes/status/status'));
+app.use('/api/channels', require('./api/routes/channel/channel'));
+app.use('/api/channel/chat', require('./api/routes/chat/chat'));
 
 // listen on port
 app.listen(PORT, () => {
