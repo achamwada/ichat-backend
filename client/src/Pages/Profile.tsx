@@ -1,6 +1,6 @@
 import React, { useEffect, useContext, useState } from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
+import { Card, Hidden } from '@material-ui/core';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
@@ -18,8 +18,8 @@ import { ThemeProvider } from '@material-ui/styles';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
-      marginTop: '5em',
-      marginLeft: '18%'
+      // marginTop: '5em',
+      // marginLeft: '18%'
       // width: '60%'
     },
     card: {},
@@ -27,21 +27,16 @@ const useStyles = makeStyles((theme: Theme) =>
       height: 140
     },
     profileAvatar: {
-      margin: 10,
-      width: 60,
-      height: 60
+      // margin: 10,
+      // width: 60,
+      // height: 60
     },
-    galleryContainer: {
-      //border: `0.5px solid #81d4fa`,
-      marginTop: theme.spacing(3),
-      padding: theme.spacing(1),
-      boxShadow: `1px 5px 5px #bdbdbd`
-    },
+    galleryContainer: {},
     interestsContainer: {
       position: 'fixed',
       top: '5em',
       right: '10%',
-      maxWidth: '20%'
+      width: '20%'
     }
   })
 );
@@ -61,7 +56,7 @@ const Profile: React.FC = () => {
 
   return (
     <Grid container>
-      <Grid item className={classes.content} sm={6}>
+      <Grid item className={classes.content} sm={12} md={7}>
         <Grid container>
           <Grid sm={12}>
             <Card className={classes.card}>
@@ -122,11 +117,13 @@ const Profile: React.FC = () => {
           </Grid>
         </Grid>
       </Grid>
-      <Grid sm={3} className={classes.interestsContainer}>
-        <TopStories />
-        <br />
-        <Channels />
-      </Grid>
+      <Hidden smDown>
+        <Grid sm={3} className={classes.interestsContainer}>
+          <TopStories />
+          <br />
+          <Channels />
+        </Grid>
+      </Hidden>
     </Grid>
   );
 };

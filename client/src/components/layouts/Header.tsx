@@ -152,7 +152,7 @@ interface DrawerMenuItem {
 
 interface ChildComponentProps extends RouteComponentProps<any> {}
 
-const Header: React.SFC<ChildComponentProps> = ({ history }) => {
+const Header: React.FC<ChildComponentProps> = ({ history, children }) => {
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(true);
@@ -356,6 +356,11 @@ const Header: React.SFC<ChildComponentProps> = ({ history }) => {
                   'error'
                 )}
               </Drawer>
+
+              <main className={classes.content}>
+                <div className={classes.toolbar} />
+                {children}
+              </main>
             </div>
           );
         }

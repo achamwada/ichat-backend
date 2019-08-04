@@ -31,22 +31,25 @@ const App: React.FC = () => {
             <FriendContextState>
               <StatusContextState>
                 <ChatContextState>
-                  <Header />
-                  <Grid container direction="row">
-                    <Switch>
-                      <Route exact path="/" component={Home} />
-                      <Route exact path="/inbox" component={InBox} />
-                      <Route exact path="/chats" component={Chats} />
-                      <Route path="/profile/" component={Profile} />
-                      <Route exact path="/about" component={About} />
-                      <Route exact path="/friends" component={Friends} />
-                      <Route exact path="/login" component={Login} />
-                      <Route exact path="/user/*" component={UserProfile} />
-                      <Route exact path="/channels" component={Channels} />
-                      <Route exact path="*" component={NotFoundPage} />
-                    </Switch>
-                  </Grid>
+                  <Header>
+                    <Grid container direction="row">
+                      <Switch>
+                        <Route exact path="/" component={Home} />
+                        <Route exact path="/inbox" component={InBox} />
+                        <Route exact path="/chats" component={Chats} />
+                        <Route path="/profile/" component={Profile} />
+                        <Route exact path="/about" component={About} />
+                        <Route exact path="/friends" component={Friends} />
+                        <Route exact path="/user/*" component={UserProfile} />
+                        <Route exact path="/channels" component={Channels} />
+                        <Route exact path="*" component={NotFoundPage} />
+                      </Switch>
+                    </Grid>
+                  </Header>
                   <Footer />
+                  <Switch>
+                    <Route exact path="/login" component={Login} />
+                  </Switch>
                 </ChatContextState>
               </StatusContextState>
             </FriendContextState>

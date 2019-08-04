@@ -17,9 +17,9 @@ import statusContext from '../context/status/statusContext';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
-      marginTop: theme.spacing(3),
-      padding: theme.spacing(3),
-      marginLeft: '18%'
+      // marginTop: theme.spacing(3),
+      // padding: theme.spacing(3),
+      // marginLeft: '18%'
     },
     contacts: {
       position: 'fixed',
@@ -58,8 +58,15 @@ export default function Home() {
   return (
     <Fragment>
       <CssBaseline />
-      <Grid container className={classes.content}>
-        <Grid item xs={12} sm={7} xl={7} style={{ marginBottom: '2em' }}>
+      <Grid container direction="column" className={classes.content}>
+        <Grid
+          item
+          xs={12}
+          sm={12}
+          md={7}
+          xl={8}
+          style={{ marginBottom: '2em' }}
+        >
           <UserStatus />
           {statuses && statuses.length > 0 ? (
             statuses.map((status, index) => {
@@ -70,7 +77,7 @@ export default function Home() {
           )}
         </Grid>
         <Hidden smDown>
-          <Grid item sm={5} xl={5} className={classes.contacts}>
+          <Grid item sm={5} xl={4} className={classes.contacts}>
             <Contacts />
             <RecentActivities />
           </Grid>

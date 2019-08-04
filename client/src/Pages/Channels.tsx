@@ -11,9 +11,9 @@ import { CssBaseline } from '@material-ui/core';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
-      marginTop: '4em', //theme.spacing(5),
-      padding: theme.spacing(3),
-      marginLeft: '18%'
+      // marginTop: '4em', //theme.spacing(5),
+      // padding: theme.spacing(3),
+      // marginLeft: '18%'
     }
   })
 );
@@ -44,7 +44,14 @@ const ChannelHome = () => {
         {channels &&
           channels.map(channel => {
             return (
-              <Grid item xs={12} sm={4} xl={4} style={{ marginBottom: '2em' }}>
+              <Grid
+                item
+                xs={12}
+                sm={5}
+                md={3}
+                xl={3}
+                style={{ margin: '0.5em' }}
+              >
                 <ChannelDetails channelData={channel} />
               </Grid>
             );
