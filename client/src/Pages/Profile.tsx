@@ -10,6 +10,7 @@ import Typography from '@material-ui/core/Typography';
 import { CssBaseline, Grid, Avatar, Paper } from '@material-ui/core';
 import PlaceholderImage from '../images/LandingPage/hero/coffee.jpg';
 import TopStories from '../components/layouts/sidebars/TopStories';
+import Channels from '../components/layouts/sidebars/Channels';
 import { AuthContext } from '../context/auth/AuthContext';
 import ProfileGallery from '../components/PhotoGallery';
 import { ThemeProvider } from '@material-ui/styles';
@@ -124,7 +125,7 @@ const Profile: React.FC = () => {
       <Grid sm={3} className={classes.interestsContainer}>
         <TopStories />
         <br />
-        <TopStories />
+        <Channels />
       </Grid>
     </Grid>
   );

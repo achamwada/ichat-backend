@@ -5,7 +5,7 @@ import {
   Theme,
   useTheme
 } from '@material-ui/core/styles';
-import { CssBaseline, Grid, Hidden } from '@material-ui/core';
+import { CssBaseline, Grid, Hidden, Paper } from '@material-ui/core';
 
 import ChatItem from '../components/chats/ChatItem';
 import Contacts from '../components/chats/Contacts';
@@ -59,7 +59,7 @@ export default function Home() {
     <Fragment>
       <CssBaseline />
       <Grid container className={classes.content}>
-        <Grid item xs={12} sm={6} xl={6} style={{ marginBottom: '2em' }}>
+        <Grid item xs={12} sm={7} xl={7} style={{ marginBottom: '2em' }}>
           <UserStatus />
           {statuses && statuses.length > 0 ? (
             statuses.map((status, index) => {
