@@ -251,14 +251,15 @@ const EnhancedTableToolbar = (props: EnhancedTableToolbarProps) => {
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      margin: 'auto',
-      marginRight: '2em',
-      width: '82%'
+      // margin: 'auto',
+      // marginRight: '2em',
+      width: '100%',
+      marginBottom: '5px'
     },
     paper: {
-      marginTop: '5em',
-      width: '100%',
-      marginBottom: theme.spacing(2)
+      // marginTop: '5em',
+      //width: '100%'
+      // marginBottom: theme.spacing(2)
     },
     table: {
       width: '100%'
@@ -416,10 +417,6 @@ const InBox: React.SFC<ChildComponentProps> = ({ history }) => {
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
       </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
     </div>
   );
 };

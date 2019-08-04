@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     subHeading: {
       padding: theme.spacing(2),
-      backgroundColor: '#3f51b5',
+      backgroundColor: theme.palette.primary.main,
       color: '#fff'
     },
 
@@ -45,7 +45,11 @@ function Row(props: ListChildComponentProps) {
     <Fragment>
       <List className={classes.list}>
         <ListSubheader style={{ padding: 0 }}>
-          <Typography variant="h5" className={classes.subHeading}>
+          <Typography
+            variant="h5"
+            className={classes.subHeading}
+            color="primary"
+          >
             Top Stories
           </Typography>
         </ListSubheader>

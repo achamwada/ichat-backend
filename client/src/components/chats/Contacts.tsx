@@ -4,7 +4,12 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import ListItemText from '@material-ui/core/ListItemText';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import {
+  createStyles,
+  makeStyles,
+  Theme,
+  withTheme
+} from '@material-ui/core/styles';
 import React, { useContext, useEffect } from 'react';
 import FriendContext from '../../context/friends/FriendsContext';
 import { User } from '../../models';
@@ -20,12 +25,18 @@ const useStyles = makeStyles((theme: Theme) =>
       //height: '70vh',
       borderBottom: 'solid #F0F0F0 1px',
       marginBottom: theme.spacing(1)
+    },
+    subHeading: {
+      padding: theme.spacing(2),
+      backgroundColor: theme.palette.primary.main,
+      color: '#fff'
     }
   })
 );
 
 const Contacts: React.FC = props => {
   const classes = useStyles({});
+  //const { theme } = props;
 
   const friendCtx = useContext(FriendContext);
   const { friends, getAllFriends } = friendCtx;
@@ -40,11 +51,7 @@ const Contacts: React.FC = props => {
 
   return (
     <Paper className={classes.root}>
-      <Typography
-        variant="h5"
-        component="h3"
-        style={{ padding: '1rem', backgroundColor: '#3f51b5', color: '#fff' }}
-      >
+      <Typography variant="h5" component="h3" className={classes.subHeading}>
         Contacts
       </Typography>
 
@@ -81,4 +88,4 @@ const Contacts: React.FC = props => {
   );
 };
 
-export default Contacts;
+export default withTheme(Contacts);

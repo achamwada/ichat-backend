@@ -39,7 +39,7 @@ const useStyles = makeStyles((theme: Theme) =>
     },
     subHeading: {
       padding: theme.spacing(2),
-      backgroundColor: '#3f51b5',
+      backgroundColor: theme.palette.primary.main,
       color: '#fff'
     },
 

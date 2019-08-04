@@ -20,6 +20,11 @@ const useStyles = makeStyles((theme: Theme) =>
       paddingBottom: theme.spacing(2),
       //height: '70vh',
       borderBottom: 'solid #F0F0F0 1px'
+    },
+    subHeading: {
+      padding: theme.spacing(2),
+      backgroundColor: theme.palette.primary.main,
+      color: '#fff'
     }
   })
 );
@@ -40,11 +45,7 @@ const RecentActivities: React.FC = props => {
 
   return (
     <Paper className={classes.root}>
-      <Typography
-        variant="h5"
-        component="h3"
-        style={{ padding: '1rem', backgroundColor: '#3f51b5', color: '#fff' }}
-      >
+      <Typography variant="h5" component="h3" className={classes.subHeading}>
         Recent Activities
       </Typography>
 
