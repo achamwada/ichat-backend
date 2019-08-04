@@ -18,35 +18,40 @@ import StatusContextState from './context/status/statusContextState';
 import ChatContextState from './context/chat/chatsContextState';
 import PageContextState from './context/page/PageContextState';
 import InBox from './Pages/InBox';
+
+import store from './store/storeConfiguration';
+import { Provider } from 'react-redux';
 const App: React.FC = () => {
   return (
-    <Router>
-      <PageContextState>
-        <AuthContextState>
-          <FriendContextState>
-            <StatusContextState>
-              <ChatContextState>
-                <Header />
-                <Grid container direction="row">
-                  <Switch>
-                    <Route exact path="/" component={Home} />
-                    <Route exact path="/inbox" component={InBox} />
-                    <Route exact path="/chats" component={Chats} />
-                    <Route path="/profile/" component={Profile} />
-                    <Route exact path="/about" component={About} />
-                    <Route exact path="/friends" component={Friends} />
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/user/*" component={UserProfile} />
-                    <Route exact path="*" component={NotFoundPage} />
-                  </Switch>
-                </Grid>
-                <Footer />
-              </ChatContextState>
-            </StatusContextState>
-          </FriendContextState>
-        </AuthContextState>
-      </PageContextState>
-    </Router>
+    <Provider store={store}>
+      <Router>
+        <PageContextState>
+          <AuthContextState>
+            <FriendContextState>
+              <StatusContextState>
+                <ChatContextState>
+                  <Header />
+                  <Grid container direction="row">
+                    <Switch>
+                      <Route exact path="/" component={Home} />
+                      <Route exact path="/inbox" component={InBox} />
+                      <Route exact path="/chats" component={Chats} />
+                      <Route path="/profile/" component={Profile} />
+                      <Route exact path="/about" component={About} />
+                      <Route exact path="/friends" component={Friends} />
+                      <Route exact path="/login" component={Login} />
+                      <Route exact path="/user/*" component={UserProfile} />
+                      <Route exact path="*" component={NotFoundPage} />
+                    </Switch>
+                  </Grid>
+                  <Footer />
+                </ChatContextState>
+              </StatusContextState>
+            </FriendContextState>
+          </AuthContextState>
+        </PageContextState>
+      </Router>
+    </Provider>
   );
 };
 
