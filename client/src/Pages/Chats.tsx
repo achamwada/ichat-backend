@@ -6,26 +6,15 @@ import Messages from '../components/chats/ChatContent/messages/Messages';
 import Hidden from '@material-ui/core/Hidden';
 import Contacts from '../components/chats/Contacts';
 import chatContext from '../context/chat/chatsContext';
+import { Paper } from '@material-ui/core';
 
 const Chats: React.FC = () => {
   const chatCtx = useContext(chatContext);
   const { chats } = chatCtx;
 
   return (
-    <Grid
-      container
-      direction="row"
-      style={{ marginTop: '2rem', marginBottom: '2rem', height: '85vh' }}
-    >
-      <Grid item sm={3}>
-        <Channels
-          topic="Golang"
-          currentChanel="Golang"
-          chatCount={1}
-          ChangeChanel={() => console.log('object')}
-        />
-      </Grid>
-      <Grid item sm={6}>
+    <Grid container direction="row">
+      <Grid item sm={12} md={8}>
         <Messages
           chats={chats}
           messageFromInput="test"

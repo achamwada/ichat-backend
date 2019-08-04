@@ -49,7 +49,7 @@ const ChannelHome = () => {
                 xs={12}
                 sm={5}
                 md={3}
-                xl={3}
+                xl={2}
                 style={{ margin: '0.5em' }}
               >
                 <ChannelDetails channelData={channel} />

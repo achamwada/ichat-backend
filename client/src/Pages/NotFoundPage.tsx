@@ -8,22 +8,26 @@ import { Link } from 'react-router-dom';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     container: {
-      marginTop: '2.5em',
-      marginLeft: '15%',
+      // marginTop: '2.5em',
+      // marginLeft: '15%',
       //margin: 'auto',
-      height: '85vh',
-      textAlign: 'center'
+      // height: '85vh',
+      // textAlign: 'center'
     },
     title: {
       marginTop: theme.spacing(5),
       padding: theme.spacing(3),
-      paddingTop: theme.spacing(3)
-      //textAlign: 'center'
+      paddingTop: theme.spacing(3),
+      textAlign: 'center'
     },
     lead: {
-      paddingTop: theme.spacing(3),
-      //padding: theme.spacing(1),
-      height: '70vh'
+      textAlign: 'center',
+      fontStyle: 'italic',
+      //fontWeight: 'bold',
+      fontSize: '1.5em'
+      // paddingTop: theme.spacing(3),
+      // padding: theme.spacing(1),
+      // height: '70vh'
     }
   })
 );
@@ -33,8 +37,8 @@ const NotFoundPage: React.FC = props => {
   return (
     <Fragment>
       <Grid item sm={9} className={classes.container}>
-        <Typography variant="h4" component="p" className={classes.title}>
-          404 | Page not found :(
+        <Typography variant="h5" component="p" className={classes.title}>
+          404 | Page not found
         </Typography>
         {/* <Divider /> */}
         <Typography component="p" className={classes.lead}>
