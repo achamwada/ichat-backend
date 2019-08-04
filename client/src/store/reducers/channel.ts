@@ -7,6 +7,7 @@ const channelReducer = (
   initState = initialChannel,
   action: ChannelActions
 ): Channel[] => {
+  console.log('action in reducer', action);
   switch (action.type) {
     case ChannelTypes.CREATE_CHANNEL:
       return [...initState, action.payload];
@@ -20,6 +21,8 @@ const channelReducer = (
           return channel;
         }
       });
+    case ChannelTypes.LOAD_CHANNELS:
+      return action.payload;
     default:
       return initState;
   }

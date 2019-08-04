@@ -18,6 +18,7 @@ import StatusContextState from './context/status/statusContextState';
 import ChatContextState from './context/chat/chatsContextState';
 import PageContextState from './context/page/PageContextState';
 import InBox from './Pages/InBox';
+import Channels from './Pages/Channels';
 
 import store from './store/storeConfiguration';
 import { Provider } from 'react-redux';
@@ -41,6 +42,7 @@ const App: React.FC = () => {
                       <Route exact path="/friends" component={Friends} />
                       <Route exact path="/login" component={Login} />
                       <Route exact path="/user/*" component={UserProfile} />
+                      <Route exact path="/channels" component={Channels} />
                       <Route exact path="*" component={NotFoundPage} />
                     </Switch>
                   </Grid>

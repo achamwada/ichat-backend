@@ -7,4 +7,6 @@ const rootReducer = combineReducers({
   channels: channelReducer
 });
 
+export type AppState = ReturnType<typeof rootReducer>;
+
 export default rootReducer;

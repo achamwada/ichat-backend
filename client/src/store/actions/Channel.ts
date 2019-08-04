@@ -19,8 +19,14 @@ export interface DeleteChannel {
   payload: string;
 }
 
+export interface LoadChannels {
+  type: ChannelTypes.LOAD_CHANNELS;
+  payload: Channel[];
+}
+
 export type ChannelActions =
   | CreateChannel
   | UpdateChannel
   | ListChannels
-  | DeleteChannel;
+  | DeleteChannel
+  | LoadChannels;

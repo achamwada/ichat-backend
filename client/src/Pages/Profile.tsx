@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     content: {
       marginTop: '5em',
-      marginLeft: '15%'
+      marginLeft: '18%'
       // width: '60%'
     },
     card: {},
@@ -39,8 +39,8 @@ const useStyles = makeStyles((theme: Theme) =>
     interestsContainer: {
       position: 'fixed',
       top: '5em',
-      right: '5px',
-      width: '100%'
+      right: '10%',
+      maxWidth: '20%'
     }
   })
 );
@@ -60,7 +60,7 @@ const Profile: React.FC = () => {
 
   return (
     <Grid container>
-      <Grid item className={classes.content} sm={7}>
+      <Grid item className={classes.content} sm={6}>
         <Grid container>
           <Grid sm={12}>
             <Card className={classes.card}>
