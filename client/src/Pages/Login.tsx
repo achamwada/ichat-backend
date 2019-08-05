@@ -37,7 +37,7 @@ const Login: React.FC<RouteComponentProps> = ({ history }) => {
     let currentIndex = Math.floor(Math.random() * images.length + 1);
     console.log('currentIndex', currentIndex);
     setDynamicImage('url(' + images[currentIndex] + ')');
-  }, 2000);
+  }, 600000);
 
   const useStyles = makeStyles((theme: Theme) =>
     createStyles({

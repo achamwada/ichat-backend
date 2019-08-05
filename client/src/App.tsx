@@ -31,7 +31,7 @@ import Button from '@material-ui/core/Button';
 const theme = createMuiTheme({
   palette: {
     primary: { main: '#017b42' }, // Purple and green play nicely together.
-    secondary: { main: '#11cb5f' } // This is just green.A700 as hex.
+    secondary: { main: '#bf072b' } // This is just green.A700 as hex.
   }
 });
 

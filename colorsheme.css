@@ -5,4 +5,7 @@
 .success > light {
     color: #10ac84
 }
+.danger > main{
+    color: #bf072b
+}
 

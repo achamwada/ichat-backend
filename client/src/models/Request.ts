@@ -81,7 +81,7 @@ export interface UserAuthenticated {
 
 export interface FriendStructure {
   relating_user: string;
-  related_user: User | null;
+  related_user: User; // | null;
   relationship: string;
   acceptance: boolean;
   date_added: number | string;

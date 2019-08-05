@@ -101,7 +101,7 @@ const Channels: React.FC = props => {
             <React.Fragment key={channel._id}>
               <Button
                 variant="outlined"
-                color="secondary"
+                color="primary"
                 fullWidth={true}
                 className={classes.buttonItem}
               >

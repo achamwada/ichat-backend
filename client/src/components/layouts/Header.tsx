@@ -4,7 +4,12 @@ import {
   faImages,
   faSignOutAlt,
   faUser,
-  faUsers
+  faCommentDots,
+  faUsers,
+  faCogs,
+  faInfoCircle,
+  faBalanceScale,
+  faUserFriends
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -20,7 +25,8 @@ import {
   ListItemText,
   Paper,
   Toolbar,
-  Typography
+  Typography,
+  Avatar
 } from '@material-ui/core';
 import {
   createStyles,
@@ -41,6 +47,7 @@ import { RouteComponentProps, withRouter, Redirect } from 'react-router-dom';
 import { AuthContext } from '../../context/auth/AuthContext';
 import PageContext from '../../context/page/PageContext';
 import { PageDetails } from '../../models/Request';
+import Badge from '@material-ui/core/Badge';
 
 const drawerWidth = 240;
 
@@ -140,6 +147,13 @@ const useStyles = makeStyles((theme: Theme) =>
       fontSize: 18
       // padding if needed
       // margin if needed
+    },
+    margin: {
+      // margin: theme.spacing(2),
+      // marginRight: theme.spacing(3)
+    },
+    avatar: {
+      //margin: 10
     }
   })
 );
@@ -184,10 +198,32 @@ const Header: React.FC<ChildComponentProps> = ({ history, children }) => {
       title: 'Profile',
       url: '/profile',
       description: 'Profile page',
-      icon: <FontAwesomeIcon className={classes.faIcon} icon={faUser} />
+      icon: (
+        <Avatar
+          alt="Remy Sharp"
+          src="https://scontent-lhr3-1.xx.fbcdn.net/v/t1.0-9/32191135_1822664874466099_3864436570203357184_o.jpg?_nc_cat=108&_nc_oc=AQnh1LgNu4dK3BvQfENPTwpzUrkv-DDT4hoZS3IvF9y-s61IcIjqQT8cO1c0rtIP_lAi_mT9dUilPUwMPiQyFFNZ&_nc_ht=scontent-lhr3-1.xx&oh=bb5d550f48b97316852f29830326f2ff&oe=5DE93667"
+          className={classes.avatar}
+        />
+      ) //<FontAwesomeIcon className={classes.faIcon} icon={faUser} />
     },
     {
       pageID: 3,
+      title: 'Friends',
+      url: '/friends',
+      description: 'Friends page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faUserFriends} />
+    },
+
+    {
+      pageID: 4,
+      title: 'Chats',
+      url: '/chats',
+      description: 'Chats page',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faCommentDots} />
+    },
+
+    {
+      pageID: 5,
       title: 'Channels',
       url: '/channels',
       description: 'Channels page',
@@ -195,25 +231,53 @@ const Header: React.FC<ChildComponentProps> = ({ history, children }) => {
     },
 
     {
-      pageID: 4,
+      pageID: 6,
       title: 'Inbox',
       url: '/inbox',
       description: 'inbox page',
-      icon: <FontAwesomeIcon className={classes.faIcon} icon={faEnvelope} />
+      icon: (
+        <Badge className={classes.margin} badgeContent={3} color="secondary">
+          <MailIcon />
+        </Badge>
+      )
     },
     {
-      pageID: 5,
+      pageID: 7,
       title: 'Gallery',
       url: '/gallery',
       description: 'Gallery page',
       icon: <FontAwesomeIcon className={classes.faIcon} icon={faImages} />
     },
     {
-      pageID: 6,
+      pageID: 8,
       title: 'Log Out',
       url: '/login',
       description: 'Logged Out',
       icon: <FontAwesomeIcon className={classes.faIcon} icon={faSignOutAlt} />
+    }
+  ];
+
+  const secondaryMenu = [
+    {
+      pageID: 9,
+      title: 'Preferences',
+      url: '/preferences',
+      description: 'Customise your experience',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faCogs} />
+    },
+    {
+      pageID: 10,
+      title: 'About Us',
+      url: '/about',
+      description: 'Learn more about iChat',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faInfoCircle} />
+    },
+    {
+      pageID: 11,
+      title: 'T & C',
+      url: '/terms',
+      description: 'Terms and Conditions',
+      icon: <FontAwesomeIcon className={classes.faIcon} icon={faBalanceScale} />
     }
   ];
 
@@ -342,12 +406,18 @@ const Header: React.FC<ChildComponentProps> = ({ history, children }) => {
                     </List>
                     <Divider />
                     <List>
-                      {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                          <ListItemIcon>
-                            {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                          </ListItemIcon>
-                          <ListItemText primary={text} />
+                      {secondaryMenu.map(menu => (
+                        <ListItem
+                          button
+                          key={menu.pageID}
+                          onClick={() => {
+                            setPage(menu);
+                            setSelectedPage(menu);
+                            history.push(menu.url);
+                          }}
+                        >
+                          <ListItemIcon>{menu.icon}</ListItemIcon>
+                          <ListItemText primary={menu.title} />
                         </ListItem>
                       ))}
                     </List>
